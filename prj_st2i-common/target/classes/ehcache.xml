@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true"
+	monitoring="autodetect" dynamicConfig="true">
+
+	<diskStore path="C:/Temp/penale" /> <!-- path="java.io.tmpdir" -->
+
+	<cache name="penale" maxBytesLocalHeap="256M" eternal="true"
+		overflowToDisk="true" maxElementsOnDisk="1000000"
+		memoryStoreEvictionPolicy="LRU">
+		<sizeOfPolicy maxDepth="1000000"
+			maxDepthExceededBehavior="abort" />
+	</cache>
+
+</ehcache>
+
+<!-- Reference : http://www.ehcache.org/documentation/2.8/configuration/cache-size.html -->
+<!-- SAMPLE : https://github.com/ehcache/ehcache.org-site/blob/master/ehcache.xml -->
+<!-- Sample : <ehcache xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true" 
+	monitoring="autodetect" dynamicConfig="true" maxBytesLocalHeap="150M" > <diskStore 
+	path="java.io.tmpdir"/> <cache name="searchResults" maxBytesLocalHeap="100M" 
+	eternal="false" timeToIdleSeconds="300" overflowToDisk="true" maxElementsOnDisk="1000" 
+	memoryStoreEvictionPolicy="LRU"/> <cache name="podcasts" maxBytesLocalHeap="40M" 
+	eternal="false" timeToIdleSeconds="300" overflowToDisk="true" maxEntriesLocalDisk="1000" 
+	diskPersistent="false" diskExpiryThreadIntervalSeconds="120" memoryStoreEvictionPolicy="LRU"/> 
+	<cache name="referenceData" maxBytesLocalHeap="5M" eternal="true" memoryStoreEvictionPolicy="LRU"> 
+	<pinning store="localMemory"/> </cache> <cache name="newestAndRecommendedPodcasts" 
+	maxBytesLocalHeap="3M" eternal="true" memoryStoreEvictionPolicy="LRU"> <pinning 
+	store="localMemory"/> </cache> <cache name="randomAndTopRatedPodcasts" maxBytesLocalHeap="1M" 
+	timeToLiveSeconds="300" memoryStoreEvictionPolicy="LRU"> </cache> </ehcache> -->

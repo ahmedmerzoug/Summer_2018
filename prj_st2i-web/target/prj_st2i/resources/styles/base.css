@@ -1,0 +1,211 @@
+@CHARSET "UTF-8";
+
+/*
+	un fichier comportant des styles de bases et les icons
+*/
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+    background-color: #F6F8F8;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 0px;
+	padding: 0px;
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 12px;
+}
+
+td {
+	border-collapse: separate;
+	border-spacing: 0px;
+	padding: 0px;
+	empty-cells: show;
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 12px;
+}
+
+h1 {
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 12px;
+	text-align: center;
+}
+
+h2 {
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 12px;
+	padding-left: 15px;
+}
+
+p, ul, li, td {
+	color: black;
+}
+
+label {
+	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	font-size: 12px;
+}
+
+a:link, a:visited {
+	font-size: 13px;
+	color: #004488;
+	text-decoration: none;
+	font-family: arial, sans-serif;
+	font-weight: normal;
+}
+
+a:hover {
+	color: #4272B4;
+	text-decoration: underline;
+	font-weight: normal;
+}
+
+optgroup {
+	display: block;
+	float: none !important;
+	position: static !important;
+	font: -moz-list;
+	line-height: normal !important;
+	font-style: normal;
+	font-weight: NORMAL;
+	font-family: monospace;
+	font-size: inherit;
+	-moz-user-select: none;
+	text-indent: 0;
+	white-space: nowrap !important;
+	word-wrap: normal !important;
+}
+
+optgroup>option {
+	-moz-padding-start: 0px;
+	font-style: normal;
+	font-family: monospace;
+	font-weight: normal;
+}
+
+
+.column1 {width: 1%;}
+.column2 {width: 2%;}
+.column3 {width: 3%;}
+.column4 {width: 4%;}
+.column5 {width: 5%;}
+.column6 {width: 6%;}
+.column7 {width: 7%;}
+.column8 {width: 8%;}
+.column9 {width: 9%;}
+.column10 {width: 10%;}
+.column11 {width: 11%;}
+.column12 {width: 12%;}
+.column13 {width: 13%;}
+.column14 {width: 14%;}
+.column15 {width: 15%;}
+.column16 {width: 16%;}
+.column17 {width: 17%;}
+.column18 {width: 18%;}
+.column19 {width: 19%;}
+.column20 {width: 20%;}
+.column21 {width: 21%;}
+.column22 {width: 22%;}
+.column23 {width: 23%;}
+.column24 {width: 24%;}
+.column25 {width: 25%;}
+.column26 {width: 26%;}
+.column27 {width: 27%;}
+.column28 {width: 28%;}
+.column29 {width: 29%;}
+.column30 {width: 30%;}
+.column31 {width: 31%;}
+.column32 {width: 32%;}
+.column33 {width: 33%;}
+.column34 {width: 34%;}
+.column35 {width: 35%;}
+.column36 {width: 36%;}
+.column37 {width: 37%;}
+.column38 {width: 38%;}
+.column39 {width: 39%;}
+.column40 {width: 40%;}
+.column41 {width: 41%;}
+.column42 {width: 42%;}
+.column43 {width: 43%;}
+.column44 {width: 44%;}
+.column45 {width: 45%;}
+.column46 {width: 46%;}
+.column47 {width: 47%;}
+.column48 {width: 48%;}
+.column49 {width: 49%;}
+.column50 {width: 50%;}
+.column51 {width: 51%;}
+.column52 {width: 52%;}
+.column53 {width: 53%;}
+.column54 {width: 54%;}
+.column55 {width: 55%;}
+.column56 {width: 56%;}
+.column57 {width: 57%;}
+.column58 {width: 58%;}
+.column59 {width: 59%;}
+.column60 {width: 60%;}
+.column61 {width: 61%;}
+.column62 {width: 62%;}
+.column63 {width: 63%;}
+.column64 {width: 64%;}
+.column65 {width: 65%;}
+.column66 {width: 66%;}
+.column67 {width: 67%;}
+.column68 {width: 68%;}
+.column69 {width: 69%;}
+.column70 {width: 70%;}
+.column71 {width: 71%;}
+.column72 {width: 72%;}
+.column73 {width: 73%;}
+.column74 {width: 74%;}
+.column75 {width: 75%;}
+.column76 {width: 76%;}
+.column77 {width: 77%;}
+.column78 {width: 78%;}
+.column79 {width: 79%;}
+.column80 {width: 80%;}
+.column81 {width: 81%;}
+.column82 {width: 82%;}
+.column83 {width: 83%;}
+.column84 {width: 84%;}
+.column85 {width: 85%;}
+.column86 {width: 86%;}
+.column87 {width: 87%;}
+.column88 {width: 88%;}
+.column89 {width: 89%;}
+.column90 {width: 90%;}
+.column91 {width: 91%;}
+.column92 {width: 92%;}
+.column93 {width: 93%;}
+.column94 {width: 94%;}
+.column95 {width: 95%;}
+.column96 {width: 96%;}
+.column97 {width: 97%;}
+.column98 {width: 98%;}
+.column99 {width: 99%;}
+.column100 {width: 100%;}
+
+
+/**************************
+	Les icones
+***************************/
+
+.ui-icon-purge {
+	background: url('#{resource['images:icons/undo_checkout.gif']}')
+		no-repeat !important;
+	height: 16px;
+	width: 16px;
+	border-radius: 0px !important;
+	padding-right: 5px !important;
+}
+
+.ui-icon-view-detail {
+	background: url('#{resource['images:icons/view_details.gif']}')
+		no-repeat !important;
+	height: 16px;
+	width: 16px;
+	border-radius: 0px !important;
+	padding-right: 0px !important;
+}

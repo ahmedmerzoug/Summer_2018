@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/taglib/easyfaces"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<ui:include src="/template/library.xhtml" />
+	<h:outputStylesheet library="styles"
+		name="login_#{sessionLang.lang}.css" />
+</h:head>
+
+<h:body class="bodyStyle">
+	<f:view locale="#{sessionLang.lang}">
+		<ui:include src="admin/utility/initPwdDialog.xhtml" />
+
+		<div dir="#{sessionLang.dir}" class="container-fluid">
+
+			<div
+				class="mainbox col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 col-xs-12 col-xs-offset-0">
+
+				<div id="loginBox">
+
+					<div class=" panel-heading-auth">
+						<div class="row">
+							<div class="log-app col-md-2">
+								<h:graphicImage library="images" width="70" name="justice2.png"
+									styleClass="labelLogo" />
+							</div>
+							<div class="title-app col">
+								<h:outputText value="#{msg['app.title']}"
+									styleClass="labelLogoText" />
+							</div>
+						</div>
+					</div>
+
+					<div class="panel-login panel-info">
+						<div class="panel-heading">
+							<div class="panel-title">#{msg['app.admin.connexion.label']}</div>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<!-- left -->
+								<div dir="#{sessionLang.dir}"
+									class="col-md-5 col-sm-4 col-xs-12">
+									<div class="center-block">
+										<h:graphicImage library="images" height="75" name="mj.png"
+											styleClass="labelLogo1" />
+										<div class="caption text-center">
+											<div>
+												<h:outputText value="#{msg['app.title.tunisie']}"
+													styleClass="labelLogoText1" />
+											</div>
+											<div>
+												<h:outputText value="#{msg['app.title.ministere']}"
+													styleClass="labelLogoText2" />
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<!-- right -->
+								<div dir="#{sessionLang.dir}"
+									class="col-md-7 col-sm-8 col-xs-12 div-separator">
+
+									<!-- change lang -->
+									<div dir="#{sessionLang.dir}" class="pull-right">
+										<h:form id="langContainer1">
+											<p:commandLink id="nonAjax12"
+												action="#{formSession.changeLangToAr}" ajax="false"
+												styleClass="lang-label">
+												<h:outputText value="عربية" />
+												<!-- <h:graphicImage name="images/icons/ar_dr.png" width="22"
+													height="16" /> -->
+											</p:commandLink>
+											<span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+											<p:commandLink id="nonAjax111" styleClass="lang-label"
+												action="#{formSession.changeLangToFr}" ajax="false">
+												<h:outputText value="Français" />
+												<!-- <h:graphicImage name="images/icons/fr_dr.png" width="22"
+													height="16" /> -->
+											</p:commandLink>
+
+										</h:form>
+									</div>
+
+									<!-- form -->
+									<div style="margin-top: 38px;">
+										<div style="display: none" id="login-alert"
+											class="alert alert-danger col-sm-12"></div>
+
+										<h:form id="formLogin" prependId="false"
+											class="form-horizontal">
+
+											<div style="margin-bottom: 20px" class="input-group">
+												<span class="input-group-addon"
+													style="border: 1px solid #d1d1d1; border-radius: 0 !important;"><i
+													class="fa fa-user"></i></span>
+												<p:inputText
+													placeholder="#{msg['app.admin.connexion.login']}"
+													required="true" id="login"
+													requiredMessage="Entrer Votre Login"
+													styleClass="form-control ui-inputfield-login"
+													value="#{loginUi.login}">
+												</p:inputText>
+
+											</div>
+											<div style="margin-top: 10px">
+												<h:message for="login" styleClass="ui-messages-error-login" />
+											</div>
+
+											<div style="margin-bottom: 20px" class="input-group">
+												<span class="input-group-addon"
+													style="border: 1px solid #d1d1d1; border-radius: 0 !important;"><i
+													class="fa fa-lock"></i></span>
+												<p:password validator="#{loginUi.verify}" required="true"
+													requiredMessage="Entrer Votre mot de passe"
+													placeholder="#{msg['app.admin.connexion.pwd']}" id="pwd"
+													value="#{loginUi.password}"
+													styleClass="form-control ui-inputfield-login"
+													redisplay="true">
+												</p:password>
+											</div>
+											<div style="margin-top: 10px">
+												<h:message for="pwd" styleClass="ui-messages-error-login" />
+											</div>
+
+											<div style="margin-top: 10px">
+
+												<div class="controls">
+													<p:commandButton
+														value="#{msg['app.admin.connexion.connect']}"
+														action="#{loginUi.doConnexion()}" ajax="false"
+														look="primary" styleClass="btn-block btn-flat" />
+
+													<div class="checkbox row">
+														<nf:selectBooleanCheckbox colMd="12" colSm="12"
+															label="#{msg['app.admin.connexion.savePwd']}"
+															idComponent="remember-me"></nf:selectBooleanCheckbox>
+													</div>
+												</div>
+											</div>
+
+										</h:form>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<h:outputLabel escape="false" value="#{login.testString}" />
+
+
+	</f:view>
+</h:body>
+
+</html>

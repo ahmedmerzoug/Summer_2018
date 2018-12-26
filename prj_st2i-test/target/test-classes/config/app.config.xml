@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="./app.config.xsd">
+
+	<!-- Le nom de la base de données utilisé par la couche persistance -->
+		<dataBase>POSTGRESQL</dataBase>
+						
+	<!-- Le nom de la variable RessourceBundle pour les entêtes des « datatable 
+		» -->
+	<dataTableValueColomnBundle>com</dataTableValueColomnBundle>
+
+	<!-- Le nom de la variable RessourceBundle pour les libellés des menus -->
+	<menuValueItemBundle>com</menuValueItemBundle>
+
+
+	<!-- Le nom de la variable RessourceBundle et les clés des messages utilisé 
+		pour la génération du PDF dans le « datatable » -->
+	<dataTablePdfConfig>
+		<bundle>msg</bundle>
+		<footerLeftMsg>pdf.footer.left</footerLeftMsg>
+		<footerRightMsg>pdf.footer.right</footerRightMsg>
+		<headerMsg>pdf.header.1</headerMsg>
+		<headerMsg>pdf.header.2</headerMsg>
+	</dataTablePdfConfig>
+
+	<!-- La configuration de la gestion des logs dans l’application -->
+	<fTraceAccesLog>0</fTraceAccesLog>
+	<fTraceAccesBase>0</fTraceAccesBase>
+	<fTraceDataLog>0</fTraceDataLog>
+	<fTraceDataBase>0</fTraceDataBase>
+	
+	<!-- La gestion de la complexité des mots de passe -->
+	<pwdMinLength>1</pwdMinLength>
+	<pwdComplexityLevel>0</pwdComplexityLevel>
+	
+	<!-- L'activation de la sécurité des Urls avec Spring Security -->
+	<enableSecurity>1</enableSecurity>
+	
+	<!-- L'activation du mode des tests unitaires -->
+	<enableUnitTest>1</enableUnitTest>
+	
+</root>

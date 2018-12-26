@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+	<xsd:simpleType name="intBin">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0" />
+			<xsd:maxInclusive value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="dataBase">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="MYSQL" />
+			<xsd:enumeration value="POSTGRESQL" />
+			<xsd:enumeration value="SQLSERVER" />
+			<xsd:enumeration value="ORACLE" />
+		</xsd:restriction>
+
+	</xsd:simpleType>
+
+	<xsd:simpleType name="pwdLength">
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="1" />
+			<xsd:maxInclusive value="50" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="pwdLevel">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0" />
+			<xsd:maxInclusive value="3" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:element name="dataTablePdfConfig">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="bundle" type="xsd:string" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="urlImageHeader" type="xsd:string" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="headerMsg" type="xsd:string"
+					minOccurs="0" maxOccurs="unbounded" />
+				<xsd:element name="fAffLine" type="intBin" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="fAffDate" type="intBin" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="fAffPage" type="intBin" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="footerMsg" type="xsd:string"
+					minOccurs="0" maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:element name="dataTableCsvConfig">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="separator" type="xsd:string"
+					minOccurs="0" maxOccurs="1" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+
+	<xsd:element name="root">
+		<xsd:complexType>
+			<xsd:choice maxOccurs="unbounded">
+				<xsd:element name="dataBase" type="dataBase" maxOccurs="1"
+					minOccurs="1"></xsd:element>
+				<xsd:element name="dataTableValueColomnBundle" type="xsd:string"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="menuValueItemBundle" type="xsd:string"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element ref="dataTablePdfConfig" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element ref="dataTableCsvConfig" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="fTraceAccesLog" type="intBin"
+					maxOccurs="1" minOccurs="1"></xsd:element>
+				<xsd:element name="fTraceAccesBase" type="intBin"
+					maxOccurs="1" minOccurs="1"></xsd:element>
+				<xsd:element name="fTraceDataLog" type="intBin"
+					maxOccurs="1" minOccurs="1"></xsd:element>
+				<xsd:element name="fTraceDataBase" type="intBin"
+					maxOccurs="1" minOccurs="1"></xsd:element>
+				<xsd:element name="pwdMinLength" type="pwdLength"
+					maxOccurs="1" minOccurs="1"></xsd:element>
+				<xsd:element name="pwdComplexityLevel" type="pwdLevel"
+					maxOccurs="1" minOccurs="1"></xsd:element>
+				<xsd:element name="enableSecurity" type="intBin"
+					maxOccurs="1" minOccurs="1"></xsd:element>
+				<xsd:element name="isDevMod" type="intBin"
+					maxOccurs="1" minOccurs="1"></xsd:element>
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

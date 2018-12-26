@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../xsd/uiView.xsd">
+
+	<uiView id="listProfils">
+		<title>adminProfil.datatable.title</title>
+		<exportFileName>listeProfils</exportFileName>
+		<uiViewHeader colTitle="adminProfil.datatable.column.desApp"
+			colWidth="30" dual="true" colFooter="adminProfil.datatable.column.code"/>
+		<uiViewHeader colTitle="adminProfil.datatable.column.code"
+			colWidth="30" type="link" colFooter="adminProfil.datatable.column.desApp"/>
+		<uiViewHeader colTitle="adminProfil.datatable.column.desProfil"
+			colWidth="30" dual="true" />
+		<uiViewHeader colTitle="adminProfil.datatable.column.desActif"
+			colWidth="10" align="center" dual="true" />
+	</uiView>
+
+	<uiView id="listUsers">
+		<title>adminUser.datatable.title</title>
+		<exportFileName>listUtilisateurs</exportFileName>
+		<uiViewHeader colTitle="adminUser.datatable.column.login"
+			colWidth="15" type="link" />
+		<uiViewHeader colTitle="adminUser.datatable.column.name"
+			colWidth="30" dual="true" />
+		<uiViewHeader colTitle="adminUser.datatable.column.mail"
+			colWidth="30" />
+		<uiViewHeader colTitle="adminUser.datatable.column.cin"
+			colWidth="15" align="center" />
+		<uiViewHeader colTitle="adminUser.datatable.column.etat"
+			colWidth="10" dual="true" />
+	</uiView>
+
+	<uiView id="listUsersForProfil">
+		<title>adminUser.datatable.title</title>
+		<fAdd>0</fAdd>
+		<fEdit>0</fEdit>
+		<fDelete>0</fDelete>
+		<fCheckBox>1</fCheckBox>
+		<fExportCsv>0</fExportCsv>
+		<fExportPdf>0</fExportPdf>
+		<uiViewHeader colTitle="adminUser.datatable.column.login"
+			colWidth="15" type="link" />
+		<uiViewHeader colTitle="adminUser.datatable.column.name"
+			colWidth="30" dual="true" />
+		<uiViewHeader colTitle="adminUser.datatable.column.mail"
+			colWidth="30" />
+		<uiViewHeader colTitle="adminUser.datatable.column.cin"
+			colWidth="15" align="center" />
+		<uiViewHeader colTitle="adminUser.datatable.column.etat"
+			colWidth="10" dual="true" />
+	</uiView>
+
+	<uiView id="listProfilsForUser">
+		<title>adminProfil.datatable.title</title>
+		<fAdd>0</fAdd>
+		<fEdit>0</fEdit>
+		<fDelete>0</fDelete>
+		<fCheckBox>1</fCheckBox>
+		<fExportCsv>0</fExportCsv>
+		<fExportPdf>0</fExportPdf>
+		<uiViewHeader colTitle="adminProfil.datatable.column.desApp"
+			colWidth="33" dual="true" />
+		<uiViewHeader colTitle="adminProfil.datatable.column.code"
+			colWidth="33" />
+		<uiViewHeader colTitle="adminProfil.datatable.column.desProfil"
+			colWidth="34" dual="true" />
+	</uiView>
+
+	<uiView id="listLogAccess">
+		<title>logAccess.datatable.title</title>
+		<nbRows>20</nbRows>
+		<fAdd>0</fAdd>
+		<fDelete>0</fDelete>
+		<dialogPanel clientId=":formLogAccess" widgetVar="wLogAccess" />
+		<exportFileName>historiqueAcces</exportFileName>
+		<uiViewHeader colTitle="logAccess.datatable.column.login"
+			colWidth="10" type="link" />
+		<uiViewHeader colTitle="logAccess.datatable.column.nom"
+			colWidth="10" />
+		<uiViewHeader colTitle="logAccess.datatable.column.date"
+			colWidth="12" type="date" />
+		<uiViewHeader colTitle="logAccess.datatable.column.time"
+			colWidth="12" align="center" />
+		<uiViewHeader colTitle="logAccess.datatable.column.remoteAdd"
+			colWidth="12" />
+		<uiViewHeader colTitle="logAccess.datatable.column.browser"
+			colWidth="14" />
+		<uiViewHeader colTitle="logAccess.datatable.column.fonc"
+			colWidth="20" />
+		<uiViewHeader colTitle="logAccess.datatable.column.access"
+			colWidth="10" align="center" dual="true"/>
+	</uiView>
+
+	<uiView id="listLogDataBySession">
+		<title>logData.datatable.title</title>
+		<fAdd>0</fAdd>
+		<fEdit>0</fEdit>
+		<fDelete>0</fDelete>
+		<withPagination>0</withPagination>
+		<exportFileName>historiqueDonnees</exportFileName>
+		<uiViewHeader colTitle="logData.datatable.column.login"
+			colWidth="20" />
+		<uiViewHeader colTitle="logData.datatable.column.nom"
+			colWidth="20" />
+		<uiViewHeader colTitle="logData.datatable.column.date"
+			colWidth="10" type="date" />
+		<uiViewHeader colTitle="logData.datatable.column.time"
+			colWidth="12" align="center" />
+		<uiViewHeader colTitle="logData.datatable.column.remoteAdd"
+			colWidth="10" />
+		<uiViewHeader colTitle="logData.datatable.column.typeOp"
+			colWidth="15" dual="true" />
+		<uiViewHeader colTitle="logData.datatable.column.table"
+			colWidth="15" />
+	</uiView>
+
+	<uiView id="listLogData">
+		<title>logData.datatable.title</title>
+		<nbRows>20</nbRows>
+		<fAdd>0</fAdd>
+		<fDelete>0</fDelete>
+		<dialogPanel clientId=":formLogData" widgetVar="wLogData" />
+		<exportFileName>historiqueDonnees</exportFileName>
+		<uiViewHeader colTitle="logData.datatable.column.login"
+			colWidth="14" type="link" />
+		<uiViewHeader colTitle="logData.datatable.column.nom"
+			colWidth="20" />
+		<uiViewHeader colTitle="logData.datatable.column.date"
+			colWidth="10" type="date" />
+		<uiViewHeader colTitle="logData.datatable.column.time"
+			colWidth="12" align="center" />
+		<uiViewHeader colTitle="logData.datatable.column.remoteAdd"
+			colWidth="12" />
+		<uiViewHeader colTitle="logData.datatable.column.typeOp"
+			colWidth="15" dual="true"/>
+		<uiViewHeader colTitle="logData.datatable.column.table"
+			colWidth="21" />
+	</uiView>
+
+	<uiView id="listProfes">
+		<title>profes.datatable.title</title>
+		<dialogPanel clientId=":formProfes" widgetVar="wProfes" />
+		<exportFileName>listeProfession</exportFileName>
+		<uiViewHeader colTitle="profes.datatable.column.cod"
+			colWidth="35" type="link" />
+		<uiViewHeader colTitle="profes.datatable.column.des"
+			colWidth="65" dual="true" />
+	</uiView>
+
+</root>

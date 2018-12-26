@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>#{msg['app.title']}</title>
+	<ui:include src="/template/library.xhtml" />
+</h:head>
+
+<h:body>
+	<script type="text/javascript">
+jQuery(document).ready(function($) {
+	setTimeout(function(){
+		$("#formLang\\:formLangButton").click();}, 1500);
+});
+
+</script>
+	<f:view locale="#{sessionLang.lang}">
+		<div id="loaderContainer">
+			<h:form id="formLang">
+				<h:panelGrid columns="1" width="100%" style="margin-top: 5px;">
+					<p:outputLabel value="#{msg['app.changLang.msg']}"
+						dir="#{sessionLang.lang}"
+						style="font-size: 16px !important; font-weight:bold !important; font-family: arial !important;"></p:outputLabel>
+					<br />
+					<p:graphicImage library="images" name="layout/loading.gif"
+						width="92" height="92" />
+					<p:commandButton action="#{formSession.validateLang}"
+						id="formLangButton" style="display: none;">
+					</p:commandButton>
+				</h:panelGrid>
+				<br />
+			</h:form>
+		</div>
+	</f:view>
+</h:body>
+
+</html>

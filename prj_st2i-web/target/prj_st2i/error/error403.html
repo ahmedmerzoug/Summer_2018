@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Accès interdit</title>
+
+<link rel="stylesheet" type="text/css" href="error.css">
+
+</head>
+<body class="redBack">
+
+
+<script type="text/javascript">
+    function getBaseURL(loc) {
+        return location.protocol + "//" + location.hostname +
+           (location.port && ":" + location.port) + "/"+location.pathname.split('/')[1]+ loc;
+    }
+</script>
+
+	<div class="errorContainer">
+		<div class="errorContainerImage">
+			<img src="access-denied.svg" style="width: 140px;">
+			<div class="emptyBox"></div>
+			<span class="accesDeniedMsg">Accès Interdit</span> <span
+				class="permessionMsg">S'il vous plaît vérifiez vos permessions!</span><br /> <span class="sorryMsg">Désolé,
+				mais vous n'avez pas accès à cette page.<br />
+			</span>
+			<div class="emptyBox"></div>
+			<button type="button" onclick="location.href=getBaseURL('/pages/admin/index.jsf');" 
+				class="buttonBack"
+				onclick="">
+				<span>Retour vers la page d'accueil</span>
+			</button>
+			<div class="emptyBox"></div>
+		</div>
+	</div>
+</body>
+</html>

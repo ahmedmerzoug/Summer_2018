@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="consoleLog" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c{1} %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="fileMethodLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/prj_st2i.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5p|%X{sessionId}|%c{1}|%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="fileAccesLog" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="${catalina.home}/logs/prj_st2i_acces.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5p|%X{sessionId}|%c{1}|%m%n" />
+		</layout>
+	</appender>
+
+	<logger name="org.hibernate.SQL" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="consoleLog" />
+		<appender-ref ref="fileMethodLog" />
+	</logger>
+
+	<logger name="com.easyfaces.common.logger.LoggerAcces" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="consoleLog" />
+		<appender-ref ref="fileAccesLog" />
+	</logger>
+
+	<logger name="com.easyfaces.common.logger.LoggerConfig"
+		additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="consoleLog" />
+		<appender-ref ref="fileMethodLog" />
+	</logger>
+
+	<root>
+		<level value="FATAL" />
+		<appender-ref ref="consoleLog" />
+		<appender-ref ref="fileMethodLog" />
+	</root>
+
+</log4j:configuration>

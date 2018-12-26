@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui">
+
+	<style type="text/css">
+.ui-dialog.hideScrollBarForChrome .ui-dialog-content {
+	overflow: hidden !important;
+}
+</style>
+
+	<p:dialog widgetVar="wLogData" dir="#{sessionLang.dir}"
+		closeOnEscape="true" responsive="true"
+		header="#{msg['logData.fiche.title']}" resizable="false"
+		visible="false" modal="true" appendTo="@(body)" showEffect="fade"
+		hideEffect="fade" styleClass="hideScrollBarForChrome">
+
+		<h:form id="formLogData">
+
+			<nf:panelGenIn idComponent="pan_cp_data" id="pan_data">
+				<nf:panelGridGen idComponent="grid_cp_acces" id="grid_acces">
+					<nf:outputText label="#{msg['logData.fiche.login']} :" colSm="6"
+						colXs="6" value="#{logDataUI.logData.login}" />
+					<nf:outputText label="#{msg['logData.fiche.nom']} :"
+						value="#{logDataUI.logData.nom}" colSm="6" colXs="6" />
+					<nf:outputText label="#{msg['logData.fiche.date']} :"
+						value="#{utils.formatDate(logDataUI.logData.datLog)}" colSm="6"
+						colXs="6" />
+					<nf:outputText label="#{msg['logData.fiche.time']} :"
+						value="#{logDataUI.logData.timeLog}" colSm="6" colXs="6" />
+				</nf:panelGridGen>
+
+				<nf:panelGridGen idComponent="grid_cp_acces_1" id="grid_acces_1">
+					<nf:outputText label="#{msg['logData.fiche.tabName']} :" colSm="6"
+						colXs="6" value="#{logDataUI.logData.tableName}" />
+					<nf:outputText label="#{msg['logData.fiche.typeOp']} :" colSm="6"
+						colXs="6"
+						value="#{sessionLang.lang=='fr'?logDataUI.logData.typOpFr:logDataUI.logData.typOpAr}" />
+					<nf:outputText label="#{msg['logData.fiche.adr']} :" colSm="6"
+						colXs="6" value="#{logDataUI.logData.remoteAddr}" />
+				</nf:panelGridGen>
+				<nf:panelGridGen idComponent="grid_cp_acces_2" id="grid_acces_2">
+					<nf:outputText label="#{msg['logData.fiche.data']} :" colSm="12"
+						colMd="12" colXs="12" value="#{logDataUI.logData.data}" />
+				</nf:panelGridGen>
+
+			</nf:panelGenIn>
+
+			<br />
+			<table style="width: 100%;" border="0">
+				<tr>
+					<td><h:panelGroup style="float:#{sessionLang.dirValueInv};">
+							<nf:button widgetVar="wLogData"></nf:button>
+						</h:panelGroup></td>
+				</tr>
+			</table>
+		</h:form>
+
+	</p:dialog>
+
+</ui:composition>

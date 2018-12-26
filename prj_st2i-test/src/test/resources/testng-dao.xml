@@ -1,0 +1,31 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="persistence-test">
+
+	<test name="dataBaseTest">
+		<groups>
+			<run>
+				<include name="database-test-table"></include>
+				<include name="database-test-unique"></include>
+			</run>
+		</groups>
+
+		<packages>
+			<package name="tn.com.st2i.prj.test.dao.admin"></package>
+		</packages>
+	</test>
+
+	<test name="workTest">
+		<groups>
+			<run> 
+				<include name="database-test-request"></include>
+				<include name="database-test-query"></include>
+			</run>
+		</groups>
+
+		<packages>
+			<package name="tn.com.st2i.prj.test.dao.admin"></package>
+		</packages>
+	
+	</test>
+
+</suite>

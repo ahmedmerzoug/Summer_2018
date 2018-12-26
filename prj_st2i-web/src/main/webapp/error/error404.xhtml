@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>Erreur</title>
+	<h:outputStylesheet library="styles" name="layout.css" />
+</h:head>
+<h:body>
+	<div style="height: 20px;"></div>
+	<div id="error" class="errorPage">
+		<TABLE>
+			<TR height="330px">
+				<TD width="450px"></TD>
+				<TD width="490px"></TD>
+				<TD width="60px"></TD>
+			</TR>
+
+			<TR height="30px">
+				<TD width="450px"></TD>
+				<TD width="490px" valign="top"><h:outputLabel
+						value="#{exceptionMessage}" style="color:#4C0C0E;" /></TD>
+				<TD width="60px"></TD>
+			</TR>
+
+			<TR>
+				<TD width="450px"></TD>
+				<TD width="490px"><h:outputLabel value="#{exceptionDetail}"
+						style="color:#4C0C0E;" /></TD>
+				<TD width="60px"></TD>
+			</TR>
+
+		</TABLE>
+
+	</div>
+
+</h:body>
+</html>

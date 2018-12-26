@@ -1,0 +1,6 @@
+<Resource name="jdbc/st2i" auth="Container"
+          type="javax.sql.DataSource" driverClassName="org.postgresql.Driver"
+          url="jdbc:postgresql://x.x.x.x:5432/dbName"
+          username="login" password="pwd" maxTotal="20" maxIdle="10" maxWaitMillis="-1"
+          validationQuery="select 1" />
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ef="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/taglib/easyfaces">
+
+	<ui:define name="panelTitle">#{msg['adminProfil.list.title']}</ui:define>
+
+	<ui:define name="content">
+
+		<h:form id="formProfilSearch">
+			<ef:panelGen search="true" id="pan_search"
+				idComponent="pan_cp_search">
+				<ef:panelGridGen idComponent="grid_cp_rech" id="grid_rech">
+					<ef:selectOneMenu label="#{msg['adminProfil.rech.desApp']} :"
+						bindings="#{profilUI.binding['comboAppSearch']}"
+						bindingsAr="#{profilUI.binding['comboAppSearch-ar']}"
+						idComponent="comboAppSearch"></ef:selectOneMenu>
+					<ef:inputText label="#{msg['adminProfil.rech.code']} :"
+						value="#{profilUI.codeSearch}" />
+					<ef:inputText label="#{msg['adminProfil.rech.desProfil']} :"
+						value="#{profilUI.desSearch}" />
+					<ef:panelGridGen align="#{sessionLang.dirValueInv}">
+						<ef:commandButton id="send" action="#{profilUI.search}"
+							search="true" update=":formListProfils:listProfils" />
+					</ef:panelGridGen>
+				</ef:panelGridGen>
+			</ef:panelGen>
+		</h:form>
+		<br />
+		<h:form id="formListProfils">
+			<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}">
+				<p:panelGrid id="listProfils" binding="#{profilUI.panelGrid}"></p:panelGrid>
+			</tag:readOnlyPanel>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

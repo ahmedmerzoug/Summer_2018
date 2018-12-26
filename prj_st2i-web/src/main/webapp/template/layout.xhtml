@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+
+	<style type="text/css">
+#title {
+	cursor: pointer;
+}
+</style>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+		name="viewport" />
+	<ui:include src="/template/library.xhtml" />
+	<script>
+		// FIX MenuButton display in mobile screen
+		var sH = '#{sessionLang.dir}';
+		if (sH == "rtl") {
+			PrimeFaces.widget.MenuButton.prototype.alignPanel = function() {
+				this.menu.css({
+					left: "",
+					top: "",
+					"z-index": ++PrimeFaces.zindex
+				});
+				if (this.menu.parent().is(this.jq)) {
+					this.menu.css({
+						left: 0,
+						top: this.jq.innerHeight()
+					})
+				} else {
+					this.menu.position({
+						my: "left top",
+						at: "left bottom",
+						of: this.button,
+						collision: "none"
+					})
+				}
+			}	
+		}
+		
+		//
+		jQuery(document)
+				.ready(
+						function() {
+							var sH = '#{sessionLang.dir}';
+							if (sH == "rtl") {
+								$('.ui-selectonemenu').css("padding-right",
+										"0em");
+								$('.ui-selectonemenu .ui-selectonemenu-trigger')
+										.css("right", "auto");
+								$('.ui-selectonemenu .ui-selectonemenu-trigger')
+										.css("left", "0px");
+								$('.ui-selectonemenu .ui-selectonemenu-label')
+										.css("text-align", "right");
+								$(
+										'.ui-selectonemenu-panel .ui-selectonemenu-list-item')
+										.css("text-align", "right");
+								$(
+										'.ui-selectonemenu-panel .ui-selectonemenu-filter-container .ui-icon')
+										.css("right", "150px");
+								$('.ui-selectonemenu .ui-selectonemenu-trigger')
+										.css("border-radius",
+												" 2px 0px 0px 2px");
+							}
+							
+							// hide calender when scrolling
+							$(document).ready(function() {
+								$('.content-wrapper .content').scroll(function() {
+					                $('#ui-datepicker-div').hide();
+					            });
+					        });
+						})
+	</script>
+</h:head>
+<body class="hold-transition skin-blue fixed sidebar-mini"
+	style="overflow: hidden !important;">
+	<f:view locale="#{sessionLang.lang}">
+		<div class="wrapper">
+			<ui:include src="/template/header.xhtml" />
+			<ui:include src="/template/sideMenu.xhtml" />
+			<div class="content-wrapper">
+				<div class="content" style="overflow-x: hidden;">
+					<h:form id="pathMenu">
+						<div id="idPathCss">
+							<p:breadCrumb styleClass="ui-breadcrumb-st2i"
+								binding="#{foncBean.pathMenu.breadCrumb}">
+
+							</p:breadCrumb>
+						</div>
+					</h:form>
+
+					<ui:insert name="content">
+					</ui:insert>
+				</div>
+			</div>
+		</div>
+		<!-- jQuery 2.1.4 -->
+
+		<!-- jQuery UI 1.11.4 -->
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$.widget.bridge('uibutton', $.ui.button);
+		</script>
+		<!-- Bootstrap 3.3.5 -->
+		<h:outputScript library="styles"
+			name="bootstrap-3.3.6/js/bootstrap-#{sessionLang.lang}.min.js" />
+		<!-- Morris.js charts -->
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+		<!-- AdminLTE App -->
+		<h:outputScript library="plugins" name="slimScroll/jquery.slimscroll.min.js" />
+		<h:outputScript library="js" name="app.js" />
+		<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+
+		<script>
+			$(document)
+					.on(
+							"click",
+							".ui-panel:has(.ui-panel-titlebar-icon) .ui-panel-titlebar",
+							function(e) {
+								console.log(e.target.className);
+								if (e.target.className === "ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
+										|| e.target.className === "ui-panel-title") {
+									$(this).find("a.ui-panel-titlebar-icon")
+											.click();
+								}
+							});
+		</script>
+	</f:view>
+</body>
+
+</html>

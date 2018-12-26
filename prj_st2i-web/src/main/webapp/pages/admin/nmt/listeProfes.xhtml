@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ef="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/taglib/easyfaces">
+
+	<ui:define name="panelTitle">#{msg['profes.list.title']}</ui:define>
+
+	<ui:define name="content">
+
+		<ui:include src="ficheProfes.xhtml" />
+
+		<h:form id="formProfesSearch">
+
+			<ef:panelGen search="true" id="pan_search"
+				idComponent="pan_cp_search">
+				<ef:panelGridGen idComponent="grid_rech_prof" id="grid_rech_prof">
+
+					<ef:inputText label="#{msg['profes.rech.codProfes']} :"
+						value="#{professionUI.codProfesSearch}" widthInput="50" />
+
+					<ef:inputText label="#{msg['profes.rech.desProfes']} :"
+						widthInput="100" value="#{professionUI.desProfesSearch}" />
+
+					<h:panelGroup style="float:#{sessionLang.dirValueInv};">
+						<ef:commandButton action="#{professionUI.search}"
+							update=":formListProfes:listProfes" search="true"></ef:commandButton>
+					</h:panelGroup>
+
+				</ef:panelGridGen>
+			</ef:panelGen>
+		</h:form>
+
+		<br />
+		<h:form id="formListProfes">
+			<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}">
+				<p:panelGrid id="listProfes" binding="#{professionUI.panelGrid}"></p:panelGrid>
+			</tag:readOnlyPanel>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

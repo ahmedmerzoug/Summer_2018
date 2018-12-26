@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ef="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:st2i="http://java.sun.com/jsf/composite/st2ii"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="panelTitle">#{msg['logAccess.list.title']}</ui:define>
+
+	<ui:define name="content">
+
+		<style type="text/css">
+.ui-selectonemenu-panel .ui-selectonemenu-items-wrapper ul {
+	direction: ltr;
+}
+
+.ui-datatable-data span {
+	direction: ltr;
+}
+</style>
+
+		<ui:include src="ficheLogAccess.xhtml" />
+
+		<h:form id="formLogAccessSearch">
+			<p:messages autoUpdate="true" />
+			<ef:panelGen search="true" id="pan_search"
+				idComponent="pan_cp_search">
+				<ef:panelGridGen idComponent="grid_cp_rech" id="grid_rech">
+					<ef:inputText label="#{msg['logAccess.rech.login']} :"
+						value="#{logAccessUI.loginSearch}" />
+					<ef:inputText label="#{msg['logAccess.rech.nom']} :"
+						value="#{logAccessUI.nomSearch}" />
+					<ef:inputText label="#{msg['logAccess.rech.adr']} :"
+						value="#{logAccessUI.adrSearch}" />
+				</ef:panelGridGen>
+
+				<ef:panelGridGen idComponent="grid_cp_rech1" id="grid_rech1">
+					<ef:selectOneMenu idComponent="comboFonc"
+						bindings="#{logAccessUI.binding['comboFoncSearch']}"
+						bindingsAr="#{logAccessUI.binding['comboFoncSearch-ar']}"
+						label="#{msg['logAccess.rech.fonc']} :"></ef:selectOneMenu>
+					<ef:periode label="#{msg['logAccess.rech.date']} :"
+						widthLabel="100" valueFirst="#{logAccessUI.dateDebut}"
+						valueLast="#{logAccessUI.dateFin}" />
+
+					<ef:selectBooleanCheckbox label="#{msg['logAccess.rech.echec']}"
+						value="#{logAccessUI.echec}" />
+					<ef:panelGridGen align="#{sessionLang.dirValueInv}">
+						<ef:commandButton action="#{logAccessUI.search}"
+							update=":formListLogAccess:listLogAccess" search="true">
+						</ef:commandButton>
+					</ef:panelGridGen>
+				</ef:panelGridGen>
+
+			</ef:panelGen>
+		</h:form>
+		<br />
+		<h:form id="formListLogAccess">
+			<p:panelGrid id="listLogAccess" binding="#{logAccessUI.panelGrid}"></p:panelGrid>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

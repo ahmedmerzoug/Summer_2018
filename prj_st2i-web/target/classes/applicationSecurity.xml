@@ -1,0 +1,59 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+	<http pattern="/javax.faces.resource/**" security="none" />
+	<http pattern="/error/**" security="none" />
+
+	<http auto-config="true" disable-url-rewriting="false">
+
+		<csrf disabled="true" />
+
+		<expression-handler ref="customWebSecurityExpressionHandler" />
+		<access-denied-handler ref="customAccessDeniedHandler" />
+
+		<intercept-url pattern="/pages/login.jsf*" access="permitAll" />
+		<intercept-url pattern="/pages/admin/index.jsf*" access="hasRole('ROLE_ST2I_INDEX')" />
+		<intercept-url pattern="/pages/admin/utility/userInfo.jsf*"
+			access="isAuthenticated()" />
+		<intercept-url pattern="/pages/admin/utility/changeLang.jsf*"
+			access="isAuthenticated()" />
+		<intercept-url pattern="/pages/**" access="isAuthenticated()" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/**" access="denyAll" />
+
+		<form-login login-page="/pages/login.jsf"
+			username-parameter="login" password-parameter="pwd"
+			authentication-success-handler-ref="customAuthenticationSuccessHandler" />
+
+		<remember-me services-ref="rememberMeService"
+			authentication-success-handler-ref="customAuthenticationSuccessHandler"
+			key="generation" />
+
+		<logout invalidate-session="true" logout-success-url="/pages/login.jsf"
+			delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE" />
+
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="customUserDetailsService">
+			<password-encoder ref="customPasswordEncoder" />
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="rememberMeService"
+		class="com.easyfaces.controller.security.CumtomRememberMeServices">
+		<beans:constructor-arg value="generation" />
+		<beans:constructor-arg ref="customUserDetailsService" />
+		<beans:constructor-arg ref="custumPersistentTokenRepository" />
+	</beans:bean>
+
+	<beans:bean id="customAccessDeniedHandler"
+		class="com.easyfaces.controller.security.CustomAccessDeniedHandler">
+		<beans:property name="errorPage" value="/error/error403.html" />
+	</beans:bean>
+
+</beans:beans>

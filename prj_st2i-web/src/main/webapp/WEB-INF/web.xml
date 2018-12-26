@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+      version="3.0">
+        
+  <!-- General configuration -->
+  
+  <display-name>prj_st2i-Web</display-name>
+  
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+  
+  <welcome-file-list>
+    <welcome-file>pages/login.jsf</welcome-file>
+  </welcome-file-list>
+  
+   <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>webapp.root.st2i.test</param-value>
+ </context-param>
+  
+  <!-- Log configuration -->
+  
+  <context-param>
+    <param-name>log4jConfigLocation</param-name>
+    <param-value>classpath:/logging/log4j.xml</param-value>
+  </context-param>
+  
+  <listener>
+    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+  </listener>
+  
+   <filter>
+    <filter-name>initSessionLog</filter-name>
+    <filter-class>com.easyfaces.controller.application.InitSessionLogFilter</filter-class>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>initSessionLog</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!-- Spring configuration -->
+  
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  
+  <listener>
+    <listener-class>
+   org.springframework.web.context.ContextLoaderListener
+  </listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>
+   org.springframework.web.context.request.RequestContextListener
+  </listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+ 
+ 
+   <!-- Jsf configuration -->
+   
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Production</param-value>
+  </context-param>
+  
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  
+  <context-param>
+    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  
+   <context-param>
+    <param-name>javax.faces.CONFIG_FILES</param-name>
+    <param-value>/WEB-INF/faces-config.xml,/WEB-INF/navigationRule/navigation-rule-home.xml</param-value>
+  </context-param>
+  
+   <context-param>
+      <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+      <param-value>true</param-value>   
+   </context-param>
+  
+    <!-- File Upload filter primefaces-->
+    
+ <filter>
+	<filter-name>PrimeFaces FileUpload Filter</filter-name>
+	<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	<init-param>
+		<param-name>thresholdSize</param-name>
+		<param-value>2097152</param-value>
+	</init-param>     
+</filter>
+
+<filter-mapping>
+	<filter-name>PrimeFaces FileUpload Filter</filter-name>
+	<servlet-name>Faces Servlet</servlet-name>
+</filter-mapping> 
+  
+ <!-- Hibernate configuration filtre--> 
+ 
+  <filter>
+    <filter-name>hibernateFilter</filter-name>
+    <filter-class>
+           org.springframework.orm.hibernate4.support.OpenSessionInViewFilter
+        </filter-class>
+    <init-param>
+      <param-name>sessionFactoryBeanName</param-name>
+      <param-value>sessionFactory</param-value>
+    </init-param>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>hibernateFilter</filter-name>
+    <url-pattern>*.jsf</url-pattern>
+  </filter-mapping>
+  
+ <!-- Encoding configuration filtre -->
+ 
+  <filter>
+    <filter-name>Set Character Encoding</filter-name>
+    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ignore</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </filter>
+  
+  <filter-mapping>
+    <filter-name>Set Character Encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  
+    <!-- Load easyfaces tag into JSF web application -->
+ <context-param>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/META-INF/easyfaces.taglib.xml</param-value>
+ </context-param>
+ 
+ <!-- Spring security configuration   -->	
+ <filter>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+
+ 
+<filter-mapping>
+    <filter-name>springSecurityFilterChain</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>FORWARD</dispatcher>
+ 	<dispatcher>REQUEST</dispatcher>
+ 	<dispatcher>INCLUDE</dispatcher>
+ 	<dispatcher>ERROR</dispatcher>
+</filter-mapping>
+
+<context-param>
+	<param-name>primefaces.THEME</param-name>
+	<param-value>none</param-value>
+</context-param>
+</web-app>

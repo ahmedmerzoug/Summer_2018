@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ef="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/taglib/easyfaces">
+
+	<ui:define name="panelTitle">#{msg['adminUser.list.title']}</ui:define>
+
+	<ui:define name="content">
+		<h:form id="formUserSearch">
+
+
+			<ef:panelGen search="true" idComponent="searchUser">
+
+				<ef:inputText label="#{msg['adminUser.rech.login']} :"
+					value="#{userUI.loginSearch}" />
+				<ef:inputText label="#{msg['adminUser.rech.name']} :"
+					value="#{userUI.nameSearch}" />
+				<ef:periode label="#{msg['adminUser.rech.dateLastUse']} :" colMd="3"
+					valueFirst="#{userUI.dateDebutLastCnx}"
+					valueLast="#{userUI.dateFinLastCnx}" />
+
+
+				<ef:selectOneMenu label="#{msg['adminUser.rech.prof']} :"
+					bindings="#{userUI.binding['comboProfSearch']}"
+					bindingsAr="#{userUI.binding['comboProfSearch-ar']}"
+					idComponent="comboVocation"></ef:selectOneMenu>
+				<ef:selectOneMenu label="#{msg['adminUser.rech.etat']} :"
+					bindings="#{userUI.binding['comboEtatSearch']}"
+					bindingsAr="#{userUI.binding['comboEtatSearch-ar']}"
+					idComponent="comboVocation"></ef:selectOneMenu>
+				<ef:inputText label="#{msg['adminUser.rech.cin']} :"
+					value="#{userUI.cinSearch}" />
+				<ef:panelGridGen align="#{sessionLang.dirValueInv}">
+					<ef:commandButton search="true" id="send" action="#{userUI.search}"
+						update=":formListUsers:listUsers" />
+
+				</ef:panelGridGen>
+			</ef:panelGen>
+		</h:form>
+		<br />
+		<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}">
+			<h:form id="formListUsers">
+				<p:panelGrid id="listUsers" binding="#{userUI.panelGrid}"></p:panelGrid>
+			</h:form>
+		</tag:readOnlyPanel>
+
+
+	</ui:define>
+
+
+</ui:composition>

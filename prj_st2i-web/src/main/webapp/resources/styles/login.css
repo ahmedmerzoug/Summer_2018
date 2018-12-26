@@ -1,0 +1,115 @@
+@CHARSET "UTF-8";
+
+.labelLogo {
+	font-size: 40px;
+	font-family: "Times New Roman", Georgia, Serif;
+	text-shadow: rgba(118, 118, 150, 0.933333) -2px -2px 13px;
+	color: #004488;
+	margin-left: 20%;
+	margin-bottom: 25px;
+}
+
+.labelLogoText {
+	font-size: 40px;
+	font-family: "Times New Roman", Georgia, Serif;
+	text-shadow: rgba(118, 118, 150, 0.933333) -2px -2px 13px;
+	color: #004488;
+	padding-left: 12px;
+}
+
+.bodyStyle {
+	background: url('#{ resource ['images:layout/background1.png']}');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#loginBox {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+}
+
+#content-wrapper {
+	overflow-y: scroll;
+}
+
+.ui-inputfield-login {
+	background-color: #fafafa;
+	border: 1px solid #d1d1d1;
+	border-radius: 0;
+	color: #525252;
+	font-family: "latoregular" !important;
+	font-size: 14px !important;
+	padding: 6px 7px !important;
+	transition: all 0.2s ease 0s !important;
+	width: 98%;
+}
+
+.container-login {
+	background: url('#{ resource ['images:layout/background1.png']}');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+
+.panel-login, .panel {
+	background-color: #fff;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+	margin-bottom: 29px;
+	width: 70%;
+	margin-left: 17%;
+}
+
+.panel-heading-auth {
+	border-bottom: 1px solid transparent;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	height: 52px;
+	padding: 2px 0px;
+}
+
+.panel-info>.panel-heading {
+	background-color: #428bca;
+	border-color: #bce8f1;
+	color: #ffffff;
+}
+
+.input-group-addon {
+	background-color: #eee !important;
+	/*border: 1px solid #ccc !important;*/
+	border-radius: 2px !important;
+	color: #555;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 1;
+	padding: 6px 12px;
+	text-align: center;
+}
+
+.ui-messages-error-login, .ui-message-error {
+	color: #f03369 !important;
+	background-color: #ffffff !important;
+	border-color: #f4bacb !important;
+	font-size: 13px;
+	font-weight: normal;
+	padding: 5px !important;
+	font-family: 'latobold';
+}

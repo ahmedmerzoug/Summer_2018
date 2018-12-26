@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="content">
+
+<style type="text/css">
+
+  
+  .ui-dataview-list .ui-dataview-row {
+        border-bottom: 1px solid #A8A8A8;
+        padding: 25px 10px;
+    }
+ 
+    .logo {
+        width: 5%;
+    }
+    .detail {
+        width: 85%;
+        padding-left: 25px;
+    }
+    
+    
+    
+    
+      .fa-file-picture-o {
+        color: purple;
+    }
+      .file {
+        color: orange;
+    }
+    
+    .ui-icon-suppss {
+	height: 20px;
+	width: 20px;
+	border-radius: 0px !important;
+	background: url(#{ resource [ 'images/icons:java-6.png' ]
+}
+
+)
+no-repeat
+ 
+!
+important
+;
+
+}
+
+   .fa-folder {
+        color: orange;
+    } 
+     .fa-folder-open  {
+        color: orange;
+    } 
+ .colorOpen {
+        color: orange;
+    }
+ .word {
+        color: blue   }
+        
+.powerpoint{
+        color: orange   }
+
+</style>
+		
+  
+   
+<h:panelGroup>
+<h:form id="treeForm">
+
+
+
+
+ 
+
+<h:panelGrid columns="2" >
+				<!-- first column, for tree navigation -->
+				<h:panelGroup styleClass="formatted">
+
+					
+					
+					
+					<p:tree id="tree" value="#{cMISBean.root}" var="node" filterBy="#{cMISBean.Return_Folder_Name(node)}" style="margin-top:10px" selection="#{cMISBean.arbre}" selectionMode="single">
+						<p:ajax event="select" listener="#{cMISBean.onNodeSelect}" update="treeForm:form:ss" />
+						<p:treeNode expandedIcon="fa fa-folder-open" collapsedIcon="fa fa-folder">
+							<h:outputText value="#{cMISBean.Return_Folder_Name(node)}" />
+						</p:treeNode>
+					</p:tree>
+					
+					
+				</h:panelGroup>
+				
+				<h:form id="form">
+			 	
+         
+			   
+		<p:dataGrid id="ss" style="width:200%" var="cmis" value="#{cMISBean.create_CmisEntity(cMISBean.arbre)}" 
+		columns="3" layout="grid"
+                rows="12" paginator="true"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="6,12,16">
+		
+		 <f:facet name="header">
+        Mes fichiers
+        </f:facet>
+ 
+ 
+		  <p:panel header="#{cmis.name}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+          
+  <h:outputText styleClass="#{cMISBean.fixIcon(cmis.idab)}" style="margin:0 auto;" />
+                <h:outputText value="#{cmis.owner}" />
+ 
+ 
+   <p:commandLink update=":treeForm:form:focusform" oncomplete="PF('carDialog').show()" title="View Detail">
+                            <h:outputText styleClass="fa fa-search" style="margin:0 auto;" />
+                            <f:setPropertyActionListener value="#{cmis}" target="#{cMISBean.selectCMIS}" />
+                        </p:commandLink>
+                
+            </h:panelGrid>
+        </p:panel>
+		</p:dataGrid>
+        <hr />
+   
+    <p:dialog header="Fichier Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="focusform" style="font-weight:bold">
+                    <p:panelGrid  columns="2" rendered="#{not empty cMISBean.selectCMIS}" columnClasses="ui-grid-col-2,ui-grid-col-4">
+                        <f:facet name="header">
+                          
+                        </f:facet>
+                        
+                        <h:outputText style="font-weight:bold" value="Nom :" />
+                        <h:outputText value="#{cMISBean.selectCMIS.name}" />
+                         <h:outputText value="Titre :" />
+                        <h:outputText value="#{cMISBean.selectCMIS.displayname}" />
+                        
+                            <h:outputText value="description :" />
+                        <h:outputText value="#{cMISBean.selectCMIS.description}" />
+                         <h:outputText value="creation date :" />
+                        <h:outputText value="#{cMISBean.selectCMIS.creationdate}" />
+
+                                <h:outputText value="last modification date:" />
+                        <h:outputText value="#{cMISBean.selectCMIS.modificationdate}" />
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+  
+
+</h:form>
+
+				
+			</h:panelGrid>
+</h:form>
+
+
+</h:panelGroup>
+		
+
+<!-- /.Treenode -->
+        
+          
+ 
+          
+           
+        
+
+
+  
+    
+    
+  
+    
+     
+   
+	</ui:define>
+
+</ui:composition>

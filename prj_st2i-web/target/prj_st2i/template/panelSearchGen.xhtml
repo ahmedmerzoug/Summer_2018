@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/taglib/easyfaces">
+
+	<h:form id="formSearchGen">
+		<p:messages closable="true" id="msg" />
+		<p:panel id="toggleable" toggleable="true" collapsed="false">
+			<f:facet name="header">
+				<h:panelGrid columns="2">
+					<span class="fa fa-search" style="margin-right: 6px;" />
+					<h:outputText value="#{gen['comp.rech.filtre']}" />
+				</h:panelGrid>
+			</f:facet>
+
+			<p:messages id="msgs" />
+
+			<h:panelGroup id="idPanelGridComboLabelleFiltre"
+				style="float:#{sessionLang.dirValueInv};">
+
+				<nf:selectOneMenuDual label="#{gen['comp.rech.filtre']} :"
+					bindings="#{bean.binding['comboFiltre']}" appendTo="@this"
+					bindingsAr="#{bean.binding['comboFiltre-ar']}"
+					idComponent="idComboFiltre" widthCombo="200" widthAll="150">
+
+					<p:ajax event="change" listener="#{bean.changeComboFiltre}"
+						update=":formSearchGen:idPanelGridComboLabelleFiltre,formSearchGen:idAllFiltre" />
+
+				</nf:selectOneMenuDual>
+
+
+
+			</h:panelGroup>
+
+
+			<br />
+			<br />
+
+			<h:panelGroup id="idAllFiltre">
+				<br />
+				<ui:repeat value="#{bean.listFiltresRechercheSelected}"
+					id="idUiRepat" var="filtreRech" varStatus="varStatus">
+
+					<p:outputPanel>
+
+						<h:panelGrid columns="3" id="filtreId"
+							rendered="#{filtreRech.valShowComposant}">
+
+							<h:panelGroup id="panelGroupCheckBox">
+								<p:selectBooleanCheckbox id="idSelectBooleanCheckbox"
+									value="#{filtreRech.valCheckBox}">
+									<p:ajax event="change" update=":formSearchGen:idAllFiltre" />
+								</p:selectBooleanCheckbox>
+							</h:panelGroup>
+
+
+							<h:panelGroup id="panelGroupOutputText">
+
+
+								<p:outputLabel style="width:100px;margin:0px  20px 5px 0px"
+									styleClass="labelTextGen"
+									value="#{sessionLang.getLangEnum()=='fr'? filtreRech.label :filtreRech.labelAr}"></p:outputLabel>
+
+							</h:panelGroup>
+
+
+
+
+
+
+							<h:panelGrid columns="2" id="panelGridCheckboxSelected"
+								rendered="#{filtreRech.valCheckBox}">
+
+
+
+								<h:panelGroup id="idPanelGroupOperateur">
+
+
+									<p:selectOneMenu id="idOperateur" appendTo="@this"
+										style="width: 150px;  direction: #{sessionLang.getLangEnum() == 'fr' ? 'rtl;' : 'ltr;' } ; margin-right: #{sessionLang.getLangEnum() == 'fr' ? '5px !important;':''} ; margin-left: #{sessionLang.getLangEnum() == 'ar' ? '5px !important;':'' }"
+										value="#{filtreRech.operateurSelected}">
+
+										<f:selectItems value="#{filtreRech.listOperateurs}" />
+
+										<p:ajax event="change" update=":formSearchGen:idAllFiltre"
+											listener="#{bean.updateOpearateur(filtreRech.id,event)}" />
+									</p:selectOneMenu>
+
+								</h:panelGroup>
+
+
+								<h:panelGroup id="idString"
+									rendered="#{filtreRech.typeComposant == 'STRING' and !(filtreRech.operateurSelected eq 'IS_EMPTY')   and !(filtreRech.operateurSelected eq 'IS_NOT_EMPTY')  }">
+									<p:inputText value="#{filtreRech.valueRechString1}"
+										required="#{filtreRech.required}" size="51"
+										requiredMessage="#{filtreRech.label} : #{gen['comp.inputText.msg']}">
+										<p:ajax event="keyup" />
+									</p:inputText>
+								</h:panelGroup>
+
+
+
+
+								<h:panelGroup id="idDate"
+									rendered="#{filtreRech.typeComposant == 'DATE' and !(filtreRech.operateurSelected eq 'IS_EMPTY')   and !(filtreRech.operateurSelected eq 'IS_NOT_EMPTY')}">
+
+									<p:panelGrid
+										rendered="#{filtreRech.operateurSelected eq 'BETWEEN'}">
+
+										<table>
+
+											<tr>
+
+												<td><p:calendar id="startDate" size="21"
+														value="#{filtreRech.valueRechDate1}"
+														placeholder="#{gen['comp.periode.du']}"
+														pattern="#{sessionLang.getLangEnum()=='fr'? 'dd/MM/yyyy' :'yyyy/MM/dd'}"
+														locale="#{sessionLang.lang}" navigator="true"
+														required="#{filtreRech.requiredFirstDate}"
+														requiredMessage="#{filtreRech.label}  #{gen['comp.periode.msg.du']}">
+														<p:ajax event="dateSelect" update="endDate" />
+													</p:calendar></td>
+												<td><p:outputLabel
+														value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" /></td>
+												<td><p:calendar id="endDate" size="21"
+														value="#{filtreRech.valueRechDate2}"
+														placeholder="#{gen['comp.periode.au']}"
+														mindate="#{filtreRech.valueRechDate1}"
+														pattern="#{sessionLang.getLangEnum()=='fr'? 'dd/MM/yyyy' :'yyyy/MM/dd'}"
+														locale="#{sessionLang.lang}" navigator="true"
+														required="#{filtreRech.requiredEndtDate}"
+														requiredMessage="#{filtreRech.label}  #{gen['comp.periode.msg.au']}">
+														<f:attribute name="startDate"
+															value="#{filtreRech.valueRechDate1}" />
+
+													</p:calendar></td>
+											</tr>
+										</table>
+									</p:panelGrid>
+
+
+									<p:calendar size="51" id="idCalenderDate_SMALLER_GREATER"
+										rendered="#{!(filtreRech.operateurSelected eq 'BETWEEN')}"
+										styleClass="calendarGen" navigator="true"
+										pattern="#{sessionLang.getLangEnum()=='fr'? 'dd/MM/yyyy' :'yyyy/MM/dd'}"
+										locale="#{sessionLang.lang}"
+										value="#{filtreRech.valueRechDate1}"
+										required="#{filtreRech.required}"
+										requiredMessage="#{filtreRech.label} : #{gen['comp.periode.msg.du']}">
+
+									</p:calendar>
+
+								</h:panelGroup>
+
+
+
+
+								<h:panelGroup id="idDateTime"
+									rendered="#{filtreRech.typeComposant == 'DATETIME' and !(filtreRech.operateurSelected eq 'IS_EMPTY')   and !(filtreRech.operateurSelected eq 'IS_NOT_EMPTY')}">
+
+									<p:panelGrid
+										rendered="#{filtreRech.operateurSelected eq 'BETWEEN'}">
+
+										<table>
+
+											<tr>
+
+												<td><p:calendar id="startDateTime" size="21"
+														value="#{filtreRech.valueRechDateTime1}"
+														placeholder="#{gen['comp.periode.du']}"
+														pattern="#{sessionLang.getLangEnum()=='fr'? 'dd/MM/yyyy HH:mm:ss' :'yyyy/MM/dd ss:mm:HH'}"
+														locale="#{sessionLang.lang}" navigator="true"
+														required="#{filtreRech.requiredFirstDate}"
+														requiredMessage="#{filtreRech.label}  #{gen['comp.periode.msg.du']}">
+														<p:ajax event="dateSelect" update="endDateTime" />
+													</p:calendar></td>
+												<td><p:outputLabel
+														value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" /></td>
+												<td><p:calendar id="endDateTime" size="21"
+														value="#{filtreRech.valueRechDateTime2}"
+														placeholder="#{gen['comp.periode.au']}"
+														mindate="#{filtreRech.valueRechDateTime1}"
+														pattern="#{sessionLang.getLangEnum()=='fr'? 'dd/MM/yyyy HH:mm:ss' :'yyyy/MM/dd ss:mm:HH'}"
+														locale="#{sessionLang.lang}" navigator="true"
+														required="#{filtreRech.requiredEndtDate}"
+														requiredMessage="#{filtreRech.label}  #{gen['comp.periode.msg.au']}">
+														<f:attribute name="startDateTime"
+															value="#{filtreRech.valueRechDateTime1}" />
+
+													</p:calendar></td>
+											</tr>
+										</table>
+									</p:panelGrid>
+
+									<p:calendar size="51" id="idCalenderDateTime_SMALLER_GREATER"
+										rendered="#{!(filtreRech.operateurSelected eq 'BETWEEN')}"
+										styleClass="calendarGen" navigator="true"
+										pattern="#{sessionLang.getLangEnum()=='fr'? 'dd/MM/yyyy HH:mm:ss' :'yyyy/MM/dd ss:mm:HH'}"
+										locale="#{sessionLang.lang}"
+										value="#{filtreRech.valueRechDateTime1}"
+										required="#{filtreRech.required}"
+										requiredMessage="#{filtreRech.label} : #{gen['comp.periode.msg.du']}">
+
+									</p:calendar>
+
+								</h:panelGroup>
+
+
+								<h:panelGroup id="idCombo"
+									rendered="#{filtreRech.typeComposant == 'COMBO'  and filtreRech.affCombo
+									and !(filtreRech.operateurSelected eq 'IS_EMPTY')   and !(filtreRech.operateurSelected eq 'IS_NOT_EMPTY')}">
+									<h:panelGrid columns="2">
+										<p:selectOneMenu id="idComboComp" filter="true"
+											filterMatchMode="startsWith" appendTo="@this"
+											style="width: 400px;  direction: #{sessionLang.getLangEnum() == 'ar' ? 'ltr;':'' } ; margin-left: #{sessionLang.getLangEnum() == 'fr' ? '0px !important;':''} ; margin-right: #{sessionLang.getLangEnum() == 'ar' ? '0px !important;':'' }   "
+											value="#{filtreRech.valueRechCombo}"
+											required="#{filtreRech.required}"
+											requiredMessage="#{filtreRech.label} : #{gen['comp.selectOneMenu.msg']}">
+											<f:selectItem itemLabel="#{gen['ui.combo.defaultMsgItem']}"
+												itemValue="" />
+											<f:selectItems value="#{filtreRech.listRechSelectOneMenu}" />
+											<p:ajax event="change" listener="#{bean.updateListComboRech}"
+												update=":formSearchGen:idAllFiltre" />
+
+										</p:selectOneMenu>
+
+										<p:commandLink rendred="#{filtreRech.showList}"
+											actionListener="#{bean.updateComboSimpleOrMultiple(filtreRech.id)}"
+											update=":formSearchGen:idAllFiltre">
+											<h:graphicImage rendered="#{filtreRech.showList}"
+												value="/resources/images/icons/circle-more-detail-search.png"
+												height="15px" width="15px">
+
+											</h:graphicImage>
+										</p:commandLink>
+
+									</h:panelGrid>
+
+								</h:panelGroup>
+
+
+
+
+								<h:panelGroup id="idComboMultiple"
+									rendered="#{filtreRech.typeComposant == 'COMBO' and !filtreRech.affCombo 
+									and !(filtreRech.operateurSelected eq 'IS_EMPTY')   and !(filtreRech.operateurSelected eq 'IS_NOT_EMPTY')}">
+
+									<h:panelGrid columns="2">
+										<p:selectManyMenu id="idComboMultipleComp" appendTo="@this"
+											scrollHeight="#{filtreRech.scrollHeight}"
+											style="width:400px;"
+											showCheckbox="#{filtreRech.showCheckbox}"
+											filter="#{filtreRech.filter}" filterMatchMode="contains"
+											value="#{filtreRech.listSelectedOptions}">
+
+											<f:selectItems value="#{filtreRech.listRechSelectOneMenu}" />
+
+										</p:selectManyMenu>
+
+										<p:commandLink rendred="#{filtreRech.showList}"
+											actionListener="#{bean.updateComboSimpleOrMultiple(filtreRech.id)}"
+											update=":formSearchGen:idAllFiltre">
+											<h:graphicImage rendred="#{filtreRech.showList}"
+												value="/resources/images/icons/circle-more-detail-search.png"
+												height="15px" width="15px">
+
+											</h:graphicImage>
+										</p:commandLink>
+									</h:panelGrid>
+
+
+								</h:panelGroup>
+
+
+								<h:panelGroup id="idBigDecimal"
+									rendered="#{filtreRech.typeComposant == 'BIGDECIMAL' and !(filtreRech.operateurSelected eq 'IS_EMPTY')   and !(filtreRech.operateurSelected eq 'IS_NOT_EMPTY')}">
+									<p:inputText id="idInputTextBigDecimal"
+										rendered="#{!(filtreRech.operateurSelected eq 'BETWEEN')}"
+										value="#{filtreRech.valueRechBigDecimal1}"
+										style="text-align:right;direction:ltr; width:400px; "
+										required="#{filtreRech.required}"
+										requiredMessage="#{filtreRech.label} : #{gen['comp.inputText.msg']}">
+
+
+										<p:ajax event="keyup" />
+									</p:inputText>
+
+
+
+
+									<table>
+										<tr>
+											<td><p:inputText id="idInputTextBigDecimalBETWEEN1"
+													rendered="#{(filtreRech.operateurSelected) eq 'BETWEEN'}"
+													value="#{filtreRech.valueRechBigDecimal1}"
+													style="text-align:right;direction:ltr;width:182px;"
+													required="#{filtreRech.required}"
+													requiredMessage="#{filtreRech.label} : #{gen['comp.inputText.msg']}">
+
+													<p:ajax event="keyup" />
+												</p:inputText></td>
+											<td><p:outputLabel styleClass="labelTextGen"
+													rendered="#{(filtreRech.operateurSelected) eq 'BETWEEN'}"
+													value="&nbsp;&nbsp; #{gen['comp.rech.entre.ET']}&nbsp;&nbsp;&nbsp;" /></td>
+											<td><p:inputText id="idInputTextBigDecimalBETWEEN2"
+													rendered="#{(filtreRech.operateurSelected) eq 'BETWEEN'}"
+													value="#{filtreRech.valueRechBigDecimal2}"
+													style="text-align:right;direction:ltr;width:182px;"
+													required="#{filtreRech.required}"
+													requiredMessage="#{filtreRech.label} : #{gen['comp.inputText.msg']}">
+
+													<p:ajax event="keyup" />
+												</p:inputText></td>
+										</tr>
+									</table>
+
+
+								</h:panelGroup>
+
+
+								<h:panelGroup id="idInteger"
+									rendered="#{filtreRech.typeComposant == 'INTEGER' and !(filtreRech.operateurSelected eq 'IS_EMPTY')   and !(filtreRech.operateurSelected eq 'IS_NOT_EMPTY')}">
+
+									<p:inputText id="idInputTextInteger"
+										rendered="#{!(filtreRech.operateurSelected eq 'BETWEEN')}"
+										value="#{filtreRech.valueRechInteger1}"
+										style="text-align:right;direction:ltr;width:400px; "
+										onkeypress="return controlNbr(event)"
+										required="#{filtreRech.required}"
+										requiredMessage="#{filtreRech.label} : #{gen['comp.inputText.msg']}">
+
+										<p:ajax event="keyup" />
+									</p:inputText>
+
+
+									<table>
+										<tr>
+											<td><p:inputText id="idInputTextIntegerBETWEEN1"
+													rendered="#{(filtreRech.operateurSelected) eq 'BETWEEN'}"
+													value="#{filtreRech.valueRechInteger1}"
+													style="text-align:right;direction:ltr;width:182px;"
+													onkeypress="return controlNbr(event)"
+													required="#{filtreRech.required}"
+													requiredMessage="#{filtreRech.label} : #{gen['comp.inputText.msg']}">
+
+													<p:ajax event="keyup" />
+												</p:inputText></td>
+											<td><p:outputLabel styleClass="labelTextGen"
+													rendered="#{(filtreRech.operateurSelected) eq 'BETWEEN'}"
+													value="&nbsp;&nbsp; #{gen['comp.rech.entre.ET']}&nbsp;&nbsp;&nbsp;" /></td>
+											<td><p:inputText id="idInputTextIntegerBETWEEN2"
+													rendered="#{(filtreRech.operateurSelected) eq 'BETWEEN'}"
+													value="#{filtreRech.valueRechInteger2}"
+													style="text-align:right;direction:ltr;width:182px;"
+													onkeypress="return controlNbr(event)"
+													required="#{filtreRech.required}"
+													requiredMessage="#{filtreRech.label} : #{gen['comp.inputText.msg']}">
+
+													<p:ajax event="keyup" />
+												</p:inputText></td>
+										</tr>
+									</table>
+
+								</h:panelGroup>
+
+
+
+
+							</h:panelGrid>
+						</h:panelGrid>
+
+					</p:outputPanel>
+
+					<hr
+						style="margin-top: 1px !important; margin-bottom: 4px !important;" />
+
+				</ui:repeat>
+				<h:panelGroup style="float:#{sessionLang.dirValueInv};">
+					<p:commandButton id="search" action="#{bean.search}"
+						value="#{gen['comp.buttonSearch.name']}"
+						update=":formSearchGen:msg,:formSearchGen:idAllFiltre,:formSearchGen:idPanelGridComboLabelleFiltre,:#{idFormList}" />
+				</h:panelGroup>
+
+				<br />
+
+
+
+
+
+
+			</h:panelGroup>
+
+		</p:panel>
+
+	</h:form>
+
+
+</ui:composition>

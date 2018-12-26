@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/taglib/easyfaces"
+	xmlns:b="http://bootsfaces.net/ui">
+
+	<ui:define name="panelTitle">#{msg['adminUser.fiche.title']}</ui:define>
+
+	<ui:define name="content">
+
+		<h:form id="formUsers">
+			<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}">
+				<p:messages />
+				<nf:panelGen title="#{msg['adminUser.fiche.general']}"
+					idComponent="generalUser" id="general">
+					<nf:panelGridGen>
+						<nf:inputText label="#{msg['adminUser.fiche.login']} :"
+							value="#{userUI.user.login}" required="true" />
+						<nf:inputTextDual label="#{msg['adminUser.fiche.name']} :"
+							value="#{userUI.user.nomUser}" valueAr="#{userUI.user.nomUserAr}"
+							required="true" />
+						<nf:inputText label="#{msg['adminUser.fiche.mail']} :"
+							value="#{userUI.user.mail}" required="true">
+							<f:validator binding="#{emailValidator}" for="input" />
+						</nf:inputText>
+					</nf:panelGridGen>
+
+					<nf:panelGridGen id="gridPwd">
+						<p:outputPanel id="outputPanelPwd">
+							<nf:generic idComponent="pwd"
+								label="#{msg['adminUser.fiche.pwd']} :"
+								rendered="#{userUI.initPwdActivated}">
+								<p:password id="pwd" value="#{userUI.pwd}"
+									style="width:100%;margin:0px 8px;" required="true"
+									maxlength="100"
+									requiredMessage="#{msg['adminUser.fiche.pwd']} : #{gen['comp.inputText.msg']}" />
+							</nf:generic>
+							<nf:generic idComponent="pwdConfirm"
+								label="#{msg['adminUser.fiche.pwdConfirm']} :" widthLabel="120"
+								rendered="#{userUI.initPwdActivated}" width="100">
+								<p:password id="pwdConfirm" value="#{userUI.pwdConfirm}"
+									style="width:100%;margin:0px 8px;" required="true"
+									maxlength="100"
+									requiredMessage="#{msg['adminUser.fiche.pwdConfirm']} : #{gen['comp.inputText.msg']}" />
+							</nf:generic>
+							<nf:outputText label="#{msg['adminUser.fiche.pwd']} :"
+								value="**********" rendered="#{!userUI.initPwdActivated}" />
+							<nf:generic idComponent="pwdCommandLink" label="&nbsp;"
+								rendered="#{userUI.user.idUser!=null}">
+								<p:commandLink id="pwdCommandLink"
+									update="formUsers:general:gridPwd:outputPanelPwd"
+									actionListener="#{userUI.initPwdByAdmin}"
+									style="margin-right:20px;" immediate="true">
+									<h:outputText
+										value="#{userUI.initPwdActivated?msg['adminUser.fiche.cancelInitPwd']:msg['adminUser.fiche.initPwd2']}" />
+								</p:commandLink>
+							</nf:generic>
+						</p:outputPanel>
+					</nf:panelGridGen>
+
+					<nf:panelGridGen>
+						<nf:inputText label="#{msg['adminUser.fiche.cin']} :"
+							value="#{userUI.user.cin}">
+							<f:validator binding="#{cinValidator}" for="input" />
+						</nf:inputText>
+						<nf:calendar label="#{msg['adminUser.fiche.dateNaiss']} :"
+							value="#{userUI.user.datNaiss}" maxdate="#{utils.maxDate}" />
+						<nf:radioBox label="#{msg['adminUser.fiche.sexe']} :"
+							bindings="#{userUI.binding['radioSexe']}" idComponent="radioSexe">
+						</nf:radioBox>
+					</nf:panelGridGen>
+
+				</nf:panelGen>
+				<br />
+				<nf:panelGen title="#{msg['adminUser.fiche.compteUser']}"
+					idComponent="panelEtat" id="userPanelGen">
+					<nf:panelGridGen rendered="#{userUI.user.idUser!=null}">
+						<nf:outputText value="#{utils.formatDate(userUI.user.datCreat)}"
+							label="#{msg['adminUser.fiche.dateCreat']} :" />
+						<nf:outputText value="#{utils.formatDate(userUI.user.datDerCx)}"
+							label="#{msg['adminUser.fiche.dateDerCx']} :" />
+					</nf:panelGridGen>
+
+					<nf:panelGridGen id="gridSus">
+						<nf:radioBox label="#{msg['adminUser.fiche.etat']} :"
+							bindings="#{userUI.binding['radioEtat']}" idComponent="radioEtat">
+							<p:ajax event="change"
+								update=":formUsers:userPanelGen:gridSus:periodeSus"
+								listener="#{userUI.checkIfUserSusp}" />
+						</nf:radioBox>
+						<p:outputPanel autoUpdate="true" id="periodeSus">
+							<nf:periode label="" valueFirst="#{userUI.user.datSuspDebut}"
+								rendered="#{userUI.userSusp}" id="idPeriode"
+								valueLast="#{userUI.user.datSuspFin}"></nf:periode>
+						</p:outputPanel>
+					</nf:panelGridGen>
+					<nf:panelGridGen id="gridExpiration">
+						<nf:selectBooleanCheckbox
+							label="#{msg['adminUser.fiche.noExpir']}"
+							value="#{userUI.inexpirable}" widthLabel="200">
+							<p:ajax event="change"
+								update=":formUsers:userPanelGen:gridExpiration:datExp" />
+						</nf:selectBooleanCheckbox>
+						<p:outputPanel autoUpdate="true" id="datExp">
+							<nf:outputText value="#{utils.formatDate(userUI.user.datExpire)}"
+								label="#{msg['adminUser.fiche.dateExpir']} :"
+								rendered="#{userUI.user.idUser!=null and !userUI.inexpirable}" />
+
+						</p:outputPanel>
+					</nf:panelGridGen>
+				</nf:panelGen>
+			</tag:readOnlyPanel>
+			<br />
+			<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}"
+				stopClick="true">
+				<p:panelGrid id="listProfilsForUser"
+					binding="#{profilsForUserUI.panelGrid}"></p:panelGrid>
+			</tag:readOnlyPanel>
+			<br></br>
+			<nf:panelGridGen align="#{sessionLang.dirValueInv}">
+				<nf:commandButton action="#{userUI.saveUser}" ajax="false"></nf:commandButton>
+				<nf:commandButton action="#{userUI.annuler}" cancel="true"></nf:commandButton>
+			</nf:panelGridGen>
+		</h:form>
+
+	</ui:define>
+
+
+</ui:composition>

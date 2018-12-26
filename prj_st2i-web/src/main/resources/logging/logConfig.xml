@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+
+	<!-- Bean Logging -->
+	<bean id="aspectLogging" class="com.easyfaces.common.logger.LoggerConfig" />
+	
+	<aop:config>
+
+		<aop:pointcut id="pointcutLog"
+			expression="execution(* tn.com.st2i.prj..*.*(..)) and !(execution(* tn.com.st2i.prj.controller..*.get*(..)) or execution(* tn.com.st2i.prj..*.set*(..)) or execution(* tn.com.st2i.prj..*.is*(..)))" />
+
+		<!-- Advice Mapping -->
+		<aop:aspect id="aopAspect" ref="aspectLogging">
+			<aop:before pointcut-ref="pointcutLog" method="logEntry" />
+			<aop:after-returning pointcut-ref="pointcutLog"
+				method="logExit" returning="result" />
+			<aop:after-throwing pointcut-ref="pointcutLog"
+				method="logAfterThrowsAdvice" throwing="e" />
+		</aop:aspect>
+
+	</aop:config>
+
+</beans>

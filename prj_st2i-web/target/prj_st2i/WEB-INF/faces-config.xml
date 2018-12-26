@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" version="2.0">
+   
+ 	<application>
+    	
+    	<locale-config>
+     		<default-locale>fr</default-locale>
+     		<supported-locale>fr</supported-locale>
+    	</locale-config>
+   
+      	<!-- JSF and Spring sont intégrés -->
+     	<el-resolver>
+     		org.springframework.web.jsf.el.SpringBeanFacesELResolver
+     	</el-resolver>
+     
+       	<!-- resource bundle path's -->
+    	 <resource-bundle>
+      		<base-name>tn.com.st2i.prj.lang.I18nRessourceBundleHome</base-name>
+            <var>msg</var>
+     	</resource-bundle>
+     	<resource-bundle>
+      		<base-name>tn.com.st2i.prj.lang.I18nRessourceBundleComponent</base-name>
+            <var>com</var>
+     	</resource-bundle>
+     
+   </application>
+   
+    <!-- la gestion des exceptions générique de JSF -->
+    <factory>
+       <exception-handler-factory>
+            com.easyfaces.controller.exception.GenericExceptionFactory
+        </exception-handler-factory>
+	</factory>
+     
+</faces-config>

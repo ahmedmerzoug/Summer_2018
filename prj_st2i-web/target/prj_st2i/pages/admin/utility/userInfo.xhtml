@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="panelTitle">#{msg['adminUser.fiche.infoUser']}</ui:define>
+
+	<ui:define name="content">
+
+		<ui:include src="initPwdDialogUserInfo.xhtml" />
+
+		<h:form id="formUserInfo">
+			<p:panel id="panelGeneral" header="#{msg['adminUser.fiche.general']}">
+				<h:panelGrid columns="2" width="1000px"
+					columnClasses="column50,column50">
+					<nf:outputText label="#{msg['adminUser.fiche.login']} :"
+						value="#{userAccountBean.viewUser.login}" widthLabel="160"
+						widthInput="100" width="100" />
+					<nf:outputText label="#{msg['adminUser.fiche.mail']} :"
+						value="#{userAccountBean.viewUser.mail}" widthLabel="160" widthInput="200"
+						width="200" />
+
+				</h:panelGrid>
+				<br />
+
+				<p:outputPanel id="outputPanelPwd">
+					<h:panelGrid columns="3" width="1000px"
+						columnClasses="column25,column25,column50">
+						<nf:outputText label="#{msg['adminUser.fiche.pwd']} :"
+							value="*****" widthInput="80" widthLabel="160" width="80" />
+						<p:commandLink id="changePwdLink" update=":formInitPwd"
+							actionListener="#{userAccountBean.prepareInitPwdByUser}"
+							style="margin-right:20px;" immediate="true" oncomplete="PF('initPwdDialog').show()">
+							<h:outputText
+								value="#{msg['adminUser.fiche.initPwd']}" />
+						</p:commandLink>
+						<nf:outputText label="#{msg['adminUser.fiche.cin']} :"
+							maxlength="8" value="#{userAccountBean.viewUser.cin}"
+							widthLabel="160" widthInput="100" width="100" />
+					</h:panelGrid>
+					<br />
+				</p:outputPanel>
+
+				<h:panelGrid columns="2" width="1000px"
+					columnClasses="column50,column50">
+					<nf:outputText label="#{msg['adminUser.fiche.name']}&nbsp;#{sessionLang.lang=='ar'?gen['comp.inputTextDual.ext']:''} :"
+						value="#{userAccountBean.viewUser.nomUser}" widthInput="100"
+						widthLabel="160" width="100" />
+					<nf:outputText label="#{msg['adminUser.fiche.name']}&nbsp;#{sessionLang.lang=='fr'?gen['comp.inputTextDual.ext']:''} :"
+						maxlength="8" value="#{userAccountBean.viewUser.nomUserAr}"
+						widthLabel="160" widthInput="100" width="100" />
+				</h:panelGrid>
+				<br />
+
+				<h:panelGrid columns="2" width="1000px"
+					columnClasses="column50,column50">
+					<nf:outputText label="#{msg['adminUser.fiche.dateNaiss']} :"
+						value="#{utils.formatDate(userAccountBean.viewUser.datNaiss)}" widthLabel="160"
+						widthInput="100" width="100" />
+					<nf:outputText label="#{msg['adminUser.fiche.sexe']} :"
+						value="#{userAccountBean.viewUser.genre==1
+								?msg['adminUser.fiche.male']
+								:msg['adminUser.fiche.femelle']}" widthLabel="160" widthInput="200"
+						width="200" />
+				</h:panelGrid>
+			</p:panel>
+
+			<br />
+
+			<p:panel id="panelProfession" header="#{msg['adminUser.fiche.prof']}">
+				<h:panelGrid columns="2" width="1000px"
+					columnClasses="column50,column50">
+					<nf:outputText ar="true"
+					valueAr="#{userAccountBean.viewUser.desProfesAr}"
+						value="#{userAccountBean.viewUser.desProfes}"
+						label="#{msg['adminUser.fiche.prof']} :" widthLabel="130"
+						width="150" />
+					<nf:outputText label="#{msg['adminUser.fiche.direcAttach']} :"
+						value="#{userAccountBean.viewUser.directionRattache}" widthLabel="180"
+						widthInput="140" width="200" />
+	
+				</h:panelGrid>
+
+				<p:outputPanel id="outputPanelOtherProfes">
+					<h:panelGrid columns="1" width="1000px"
+						rendered="#{userAccountBean.otherProfesActivated}">
+						<br />
+						<nf:outputText label="#{msg['adminUser.fiche.otherProf']} :"
+							value="#{userAccountBean.viewUser.autreProfession}" widthLabel="130"
+							widthInput="200" width="200" />
+					</h:panelGrid>
+					
+				</p:outputPanel>
+			</p:panel>
+
+			<br />
+
+			<p:panel id="panelEtat" header="#{msg['adminUser.fiche.compteUser']}">
+				<h:panelGrid columns="2" width="1000px"
+					columnClasses="column50,column50">
+					<nf:outputText
+						value="#{utils.formatDate(userAccountBean.viewUser.datCreat)}"
+						label="#{msg['adminUser.fiche.dateCreat']} :" widthLabel="130"
+						width="150" />
+					<nf:outputText
+						value="#{utils.formatDate(userAccountBean.viewUser.datDerCx)}"
+						label="#{msg['adminUser.fiche.dateDerCx']} :" widthLabel="200"
+						width="150" />
+				</h:panelGrid>
+				<br />
+				<h:panelGrid columns="2" width="1000px"
+					columnClasses="column50,column50">
+					<nf:outputText label="#{msg['adminUser.fiche.etat']} :" ar="true"
+					valueAr="#{userAccountBean.viewUser.desArUserEtat}"
+						value="#{userAccountBean.viewUser.desFrUserEtat}" widthLabel="130"
+						widthInput="300" width="300" />
+					<nf:selectBooleanCheckbox
+						label="#{msg['adminUser.fiche.noExpir']}"
+						value="#{userAccountBean.inexpirable}" readonly="true"
+						rendered="#{userAccountBean.inexpirable}">
+					</nf:selectBooleanCheckbox>
+					<nf:outputText
+						value="#{utils.formatDate(userAccountBean.viewUser.datExpire)}"
+						label="#{msg['adminUser.fiche.dateExpir']} :" widthLabel="200"
+						width="150" rendered="#{!userAccountBean.inexpirable}" />
+				</h:panelGrid>
+				
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+
+
+</ui:composition>

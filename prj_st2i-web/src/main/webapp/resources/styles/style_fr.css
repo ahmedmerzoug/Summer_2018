@@ -1,0 +1,224 @@
+@CHARSET "UTF-8";
+
+#idPathCss ul {
+	float: left;
+}
+
+#idPathCss li {
+	float: left;
+}
+
+#idMenuCss ul {
+	float: left;
+}
+
+#idMenuCss li {
+	float: left;
+}
+
+.ui-panelmenu .ui-panelmenu-header .ui-icon {
+	float: left;
+}
+
+.ui-icon-seek-next {
+	background-position: -32px -160px;
+}
+
+.ui-icon-seek-prev {
+	background-position: -48px -160px;
+}
+
+.ui-icon-seek-end {
+	background-position: -64px -160px;
+}
+
+.ui-icon-seek-first {
+	background-position: -80px -160px;
+}
+
+.ui-icon-triangle-1-e {
+	background-position: -32px -16px;
+}
+
+.ui-icon-home {
+	text-indent: -99999px;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	right: 0px;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	left: auto;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-list-item {
+	text-align: left;
+}
+
+.ui-corner-right {
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+.ui-selectonemenu-panel {
+	direction: ltr;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-filter-container .ui-icon {
+	right: 10px;
+	left: auto;
+}
+
+.header_logo {
+	margin-left: 30px;
+	float: left;
+}
+
+.header_title {
+	margin-left: 10px;
+	float: left;
+}
+
+.header_button_ul {
+	float: right;
+}
+
+.header_button_submenu_ul {
+	margin-left: -185px;
+	background-position: top right;
+}
+
+.header_button_submenu_ul li .submenu_userParam_label {
+	text-align: left;
+}
+
+.header_button_submenu_ul li i {
+	float: left;
+	margin: 0px 10px !important;
+}
+
+.header_button_submenu_ul li a {
+	text-align: left;
+}
+
+.ui-panelmenu .ui-panelmenu-header .ui-icon {
+	left: .5em !important;
+	right: auto !important;
+}
+
+#idMenuCss .ui-panelmenu .ui-panelmenu-header .ui-icon {
+	background-image: url("#{resource['images:layout/right-arrow.svg']}");
+}
+
+.ui-panelmenu .ui-menu-parent .ui-panelmenu-icon.ui-icon {
+	left: 0.5em;
+	right: auto;
+}
+
+#idMenuCss .ui-panelmenu .ui-menuitem-link {
+	padding: 10px 5px 10px 20px;
+}
+
+#idMenuCss .ui-panelmenu .ui-menu-parent .ui-panelmenu-icon.ui-icon.ui-icon-triangle-1-e
+	{
+	background-image:
+		url("#{resource['images:layout/right-one-arrow-for-data-blue.svg']}");
+	background-position: left;
+}
+
+.ui-breadcrumb-chevron {
+	background-image:
+		url("#{resource['images:layout/breadcrumb-arrow-right.svg']}")
+		!important;
+	height: 20px !important;
+	background-position: center !important;
+	background-size: 60% !important;
+	padding: 0px 10px;
+	margin-top: 0px !important;
+}
+
+.ui-button-icon-left {
+	left: .5em;
+}
+
+.headerDatatableCol2 {
+	text-align: left;
+}
+
+.headerDatatable .ui-Widget-header {
+	margin-left: 30px;
+}
+
+.ui-datatable .ui-paginator .ui-paginator-prev .ui-icon {
+	background-image:
+		url("#{resource['images:layout/left-one-arrow-for-data.svg']}")
+		!important;
+}
+
+.ui-datatable .ui-paginator .ui-paginator-first .ui-icon {
+	background-image:
+		url("#{resource['images:layout/left-double-arrow-for-data.svg']}")
+		!important;
+}
+
+.ui-datatable .ui-paginator .ui-paginator-next .ui-icon {
+	background-image:
+		url("#{resource['images:layout/right-one-arrow-for-data.svg']}")
+		!important;
+}
+
+.ui-datatable .ui-paginator .ui-paginator-last .ui-icon {
+	background-image:
+		url("#{resource['images:layout/right-double-arrow-for-data.svg']}")
+		!important;
+}
+
+/*.ui-tree .ui-icon-triangle-1-e {
+	background-image:
+		url("#{resource['images:layout/rightarrow-blue.svg']}") !important;
+}*/
+
+/*.ui-selectonemenu .ui-selectonemenu-trigger{
+	border-bottom-right-radius: 5px !important;
+  	border-top-right-radius: 5px !important;
+}
+*/
+.ui-selectonemenu .ui-selectonemenu-trigger, .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger
+	{
+	background-color: #fafafa;
+	border-radius: 0 0px 0px 0 !important;
+	color: #ffffff !important;
+	font-size: 14px;
+	margin: 0 !important;
+	padding: 0 10px !important;
+	text-shadow: none;
+	z-index: 100;
+}
+
+/* form fields */
+.set-panel {
+	margin-bottom: 0.6em;
+}
+
+.set-panel-heading {
+	background-color: #eeeeee;
+	color: #515d6b;
+	padding: 0.2em 0.2em;
+}
+
+.set-panel-body {
+	border: 2px #eeeeee solid;
+	margin-top: 0px !important;
+	padding: 0.3em 0.6em 0;
+}
+
+.form-control {
+	padding: 6px 6px !important; /*6px 12px;*/
+}
+
+select.form-control {
+	padding: 6px 0px !important; /*6px 12px;*/
+}

@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="presentation-test">
+
+	<test name="businessTest">
+		<groups>
+			<run>
+				<include name="crud-test"></include>
+			</run>
+		</groups>
+
+		<packages>
+			<package name="tn.com.st2i.prj.test.controller.admin"></package>
+		</packages>
+	</test>
+
+</suite>

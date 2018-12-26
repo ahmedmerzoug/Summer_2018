@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/taglib/easyfaces">
+
+	<ui:define name="panelTitle">#{msg['adminProfil.fiche.title']}</ui:define>
+
+	<ui:define name="content">
+
+		<h:form id="formMsg">
+			<p:messages />
+		</h:form>
+		<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}">
+			<h:form id="formProfil">
+				<nf:panelGen title="#{msg['adminProfil.fiche.profil']}"
+					id="pan_profil" idComponent="pan_cp_profil">
+
+					<nf:panelGridGen idComponent="grid_cp_profil_1" id="grid_profil_1">
+						<nf:inputText label="#{msg['adminProfil.fiche.code']} :"
+							value="#{profilUI.profil.codProfil}" required="true" />
+
+						<nf:selectOneMenu label="#{msg['adminProfil.fiche.desApp']} :"
+							bindings="#{profilUI.binding['comboAppEdit']}"
+							idComponent="comboAppEdit" required="true"
+							rendered="#{profilUI.profil.idProfil==null}"></nf:selectOneMenu>
+
+						<nf:outputText ar="true" valueAr="#{profilUI.viewProfil.desAppAr}"
+							value="#{profilUI.viewProfil.desApp}"
+							label="#{msg['adminProfil.fiche.desApp']} :"
+							rendered="#{profilUI.profil.idProfil!=null}" />
+
+
+						<nf:inputTextDual label="#{msg['adminProfil.fiche.desProfil']} :"
+							value="#{profilUI.profil.desProfil}" widthInput="80"
+							valueAr="#{profilUI.profil.desProfilAr}" required="true"
+							requiredAr="true" />
+
+
+						<nf:radioBox label="#{msg['adminProfil.fiche.desActif']} :"
+							bindings="#{profilUI.binding['radioActifEdit']}"
+							idComponent="radioActifEdit">
+							<p:ajax event="change" listener="#{profilUI.changeProfilState}"
+								update=":formListUsersForProfil:listUsersForProfil" />
+						</nf:radioBox>
+
+					</nf:panelGridGen>
+
+					<nf:panelGridGen idComponent="grid_cp_profil_2" id="grid_profil_2">
+						<nf:outputText label="#{msg['adminProfil.fiche.datCreat']} :"
+							value="#{utils.formatDate(profilUI.profil.datCreat)}"
+							valueAr="#{utils.formatDate(profilUI.profil.datCreat)}"
+							widthLabel="130" rendered="#{profilUI.profil.idProfil!=null}" />
+						<nf:outputText label="#{msg['adminProfil.fiche.datDerModif']} :"
+							value="#{utils.formatDate(profilUI.profil.datDerModif)}"
+							valueAr="#{utils.formatDate(profilUI.profil.datDerModif)}"
+							widthLabel="200" rendered="#{profilUI.profil.idProfil!=null}" />
+					</nf:panelGridGen>
+
+				</nf:panelGen>
+			</h:form>
+
+			<h:form id="formFonc">
+
+				<h:panelGroup id="panelParamFonc" width="100%">
+					<h:panelGrid rendered="#{profilUI.modifTreeFoncActivated}"
+						width="100%">
+						<br />
+						<ui:include src="panelFonc.xhtml" />
+					</h:panelGrid>
+				</h:panelGroup>
+			</h:form>
+
+
+		</tag:readOnlyPanel>
+
+		<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}"
+			stopClick="true">
+
+			<h:form id="formListUsersForProfil">
+				<h:panelGroup id="listUsersForProfil" width="100%">
+					<h:panelGrid rendered="#{profilUI.profilActif}">
+						<br />
+					</h:panelGrid>
+					<p:panelGrid binding="#{usersForProfilUI.panelGrid}"
+						rendered="#{profilUI.profilActif}"></p:panelGrid>
+
+				</h:panelGroup>
+
+				<br />
+			</h:form>
+		</tag:readOnlyPanel>
+		<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}">
+			<h:form>
+
+				<table style="width: 100%;" border="0">
+					<tr>
+						<td><h:panelGroup id="pgSubmitBtn"
+								style="float:#{sessionLang.dirValueInv};">
+								<nf:panelGridGen idComponent="grid_cp_profil_3"
+									id="grid_profil_3">
+									<nf:commandButton
+										action="#{profilUI.saveProfilAndSelectedUsers}"
+										process="@this, :formProfil, :formListUsersForProfil"
+										partialSubmit="true" colMd="5"
+										update=":formMsg,:formProfil,:formFonc,:formListUsersForProfil"></nf:commandButton>
+									<nf:commandButton cancel="true" action="#{profilUI.annuler}"
+										colMd="5"></nf:commandButton>
+								</nf:panelGridGen>
+							</h:panelGroup></td>
+					</tr>
+				</table>
+
+			</h:form>
+		</tag:readOnlyPanel>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui">
+
+	<script type="text/javascript">
+	function auto_connect(xhr, status, args){
+		if(!args.validationFailed) {
+			if(args.error==0){
+				PF('initPwdDialog').hide();
+				document.getElementById('bnt_connect').click();
+			}
+		}
+	}
+	</script>
+
+
+	<p:dialog id="initPwdDlg" widgetVar="initPwdDialog"
+		dir="#{sessionLang.dir}" visible="#{loginUi.isDisplayPopup}"
+		rendred="#{loginUi.isDisplayPopup}"
+		header="#{msg['adminUser.fiche.initPwd']}" resizable="false"
+		modal="true" appendToBody="@(body)" showEffect="fade" closable="false"
+		hideEffect="fade">
+
+		<h:form id="formInitPwd">
+
+			<p:messages severity="error" escape="false" />
+
+			<h:panelGrid columns="1" width="100%">
+				<nf:generic idComponent="oldPwd"
+					label="#{msg['adminUser.fiche.oldPwd']} :" widthLabel="200"
+					width="100">
+					<p:password id="oldPwd" value="#{loginUi.oldPwd}"
+						style="width:150px;" required="true"
+						requiredMessage="#{msg['adminUser.fiche.oldPwd']} : #{gen['comp.inputText.msg']}" />
+				</nf:generic>
+				<br />
+				<nf:generic idComponent="pwd"
+					label="#{msg['adminUser.fiche.pwdChange']} :" widthLabel="200"
+					width="100">
+					<p:password id="pwd" value="#{loginUi.pwd}" style="width:150px;"
+						required="true"
+						requiredMessage="#{msg['adminUser.fiche.pwdChange']} : #{gen['comp.inputText.msg']}" />
+				</nf:generic>
+				<br />
+				<nf:generic idComponent="pwdConfirm"
+					label="#{msg['adminUser.fiche.pwdConfirmChange']} :"
+					widthLabel="200" width="100">
+					<p:password id="pwdConfirm" value="#{loginUi.pwdConfirm}"
+						style="width:150px;" required="true"
+						requiredMessage="#{msg['adminUser.fiche.pwdConfirmChange']} : #{gen['comp.inputText.msg']}" />
+				</nf:generic>
+			</h:panelGrid>
+
+			<br />
+
+			<table style="width: 100%;" border="0">
+				<tr>
+					<td><h:panelGroup style="float:#{sessionLang.dirValueInv};">
+							<nf:commandButton action="#{loginUi.initPwdByUser}"
+								update=":formInitPwd,:formLogin"
+								oncomplete="auto_connect(xhr, status, args);"></nf:commandButton>
+							<nf:commandButton action="#{loginUi.cancelInitPwdByUser}"
+								value="#{msg['app.cancel']}" update=":formInitPwd"
+								immediate="true" oncomplete="PF('initPwdDialog').hide();"></nf:commandButton>
+
+						</h:panelGroup></td>
+				</tr>
+			</table>
+
+		</h:form>
+
+	</p:dialog>
+
+</ui:composition>

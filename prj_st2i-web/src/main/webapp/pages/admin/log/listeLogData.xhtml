@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:st2i="http://java.sun.com/jsf/composite/st2ii"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="panelTitle">#{msg['logData.list.title']}</ui:define>
+
+	<ui:define name="content">
+
+
+		<style type="text/css">
+.ui-selectonemenu-panel .ui-selectonemenu-items-wrapper {
+	overflow-x: hidden !important;
+	overflow-y: scroll !important; /* normally auto */
+}
+</style>
+
+		<ui:include src="ficheLogData.xhtml" />
+
+		<h:form id="formLogDataSearch">
+			<p:messages autoUpdate="true" />
+			<nf:panelGen search="true" id="pan_search"
+				idComponent="pan_cp_search">
+				<nf:panelGridGen idComponent="grid_cp_rech" id="grid_rech">
+					<nf:inputText label="#{msg['logData.rech.login']} :"
+						value="#{logDataUI.loginSearch}" />
+					<nf:inputText label="#{msg['logData.rech.nom']} :"
+						value="#{logDataUI.nomSearch}" />
+					<nf:periode label="#{msg['logData.rech.date']} :"
+						valueFirst="#{logDataUI.dateDebut}"
+						valueLast="#{logDataUI.dateFin}" />
+					<nf:selectBooleanCheckbox
+						label="#{msg['logData.rech.typeOpSaveUpdate']}"
+						value="#{logDataUI.typOpSaveUpdate}" />
+				</nf:panelGridGen>
+
+				<nf:panelGridGen idComponent="grid_cp_rech1" id="grid_rech1">
+					<nf:inputText label="#{msg['logData.rech.adr']} :"
+						value="#{logDataUI.adrSearch}" />
+					<nf:inputText label="#{msg['logData.rech.tabName']} :"
+						value="#{logDataUI.tableName}" />
+					<nf:selectBooleanCheckbox
+						label="#{msg['logData.rech.typeOpDelete']}"
+						value="#{logDataUI.typOpDelete}" />
+					<nf:panelGridGen align="#{sessionLang.dirValueInv}">
+						<nf:commandButton action="#{logDataUI.search}"
+							update=":formListLogData:listLogData" search="true"></nf:commandButton>
+					</nf:panelGridGen>
+				</nf:panelGridGen>
+			</nf:panelGen>
+
+		</h:form>
+
+		<br />
+
+		<h:form id="formListLogData">
+			<p:panelGrid id="listLogData" binding="#{logDataUI.panelGrid}"></p:panelGrid>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

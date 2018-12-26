@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ef="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:tag="http://java.sun.com/jsf/taglib/easyfaces">
+
+	<style type="text/css">
+.ui-dialog.hideScrollBarForChrome .ui-dialog-content {
+	overflow: hidden !important;
+}
+</style>
+
+	<p:dialog widgetVar="wProfes" dir="#{sessionLang.dir}" width="700px"
+		header="#{msg['profes.fiche.title']}" resizable="false"
+		visible="false" modal="true" appendTo="@(body)" showEffect="fade"
+		hideEffect="fade" styleClass="hideScrollBarForChrome">
+
+
+		<h:form id="formProfes">
+			<tag:readOnlyPanel readOnly="#{formSession.isReadOnly}">
+				<p:panel id="panelProfes">
+				
+
+					<p:messages closable="true" />
+					<h:panelGrid width="100%">
+
+						<ef:inputText label="#{msg['profes.fiche.codProfes']} :"
+							value="#{professionUI.profes.codProfes}" required="true"
+							colSm="6" colXs="6" />
+
+
+					</h:panelGrid>
+					<br />
+					<h:panelGrid>
+						<ef:inputTextAreaDual label="#{msg['profes.fiche.desProfes']} :"
+							value="#{professionUI.profes.desProfes}" maxlength="400"
+							valueAr="#{professionUI.profes.desProfesAr}" rows="1"
+							widthLabel="140" widthInput="400" width="400" required="true"
+							requiredAr="true" />
+					</h:panelGrid>
+					<br />
+
+					<h:panelGroup style="float:#{sessionLang.dirValueInv};">
+						<ef:commandButton action="#{professionUI.saveProfes}"
+							update=":formListProfes:listProfes, :formProfes"
+							widgetVar="wProfes" colSm="6" colXs="6">
+						</ef:commandButton>
+						<ef:button widgetVar="wProfes" colSm="6" colXs="6" />
+					</h:panelGroup>
+					<br />
+					<br />
+				</p:panel>
+			</tag:readOnlyPanel>
+		</h:form>
+
+	</p:dialog>
+
+</ui:composition>

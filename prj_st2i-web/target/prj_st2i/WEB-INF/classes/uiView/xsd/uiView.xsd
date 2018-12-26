@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+
+
+	<xsd:simpleType name="intBin">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0" />
+			<xsd:maxInclusive value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="intPer">
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0" />
+			<xsd:maxInclusive value="100" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="intRow">
+		<xsd:restriction base="xsd:int">
+			<xsd:enumeration value="10" />
+			<xsd:enumeration value="20" />
+			<xsd:enumeration value="50" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="align">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="left" />
+			<xsd:enumeration value="right" />
+			<xsd:enumeration value="center" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="type">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="date" />
+			<xsd:enumeration value="number" />
+			<xsd:enumeration value="link" />
+			<xsd:enumeration value="icon" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="typeBoolean">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="true" />
+			<xsd:enumeration value="false" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:simpleType name="clause">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="STRING" />
+			<xsd:enumeration value="DATE" />
+			<xsd:enumeration value="BOOLEAN" />
+			<xsd:enumeration value="LONG" />
+			<xsd:enumeration value="INTEGER" />
+			<xsd:enumeration value="BIGDECIMAL" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="intBinOrder">
+		<xsd:simpleContent>
+			<xsd:extension base="intBin">
+				<xsd:attribute name="order" type="xsd:int" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="dialogPanelRef">
+		<xsd:attribute name="clientId" type="xsd:string" use="required" />
+		<xsd:attribute name="widgetVar" type="xsd:string" use="required" />
+		<xsd:attribute name="fEdit" type="intBin" />
+	</xsd:complexType>
+
+
+
+	<xsd:element name="uiXmlElementSearch">
+		<xsd:complexType>
+			<xsd:attribute name="idRech" type="xsd:string" use="required" />
+			<xsd:attribute name="label" type="xsd:string" use="required" />
+			<xsd:attribute name="labelAr" type="xsd:string" use="required" />
+			<xsd:attribute name="typeComposant" type="xsd:string"
+				use="required" />
+			<xsd:attribute name="columnDB" type="xsd:string" use="required" />
+			<xsd:attribute name="clause" type="clause" use="required" />
+			<xsd:attribute name="visible" type="xsd:boolean" use="required" />
+			<xsd:attribute name="required" type="xsd:boolean" />
+			<xsd:attribute name="joinClass" type="xsd:string" />
+			<xsd:attribute name="joinColumnSrc" type="xsd:string" />
+			<xsd:attribute name="joinColumnDest" type="xsd:string" />
+			<xsd:attribute name="negation" type="xsd:boolean" />
+			<xsd:attribute name="clauseExist" type="xsd:boolean" />
+			<xsd:attribute name="showCheckbox" type="xsd:boolean" />
+			<xsd:attribute name="filter" type="xsd:boolean" />
+			<xsd:attribute name="showList" type="xsd:boolean" />
+			<xsd:attribute name="requiredFirstDate" type="xsd:boolean" />
+			<xsd:attribute name="requiredEndtDate" type="xsd:boolean" />
+			<xsd:attribute name="scrollHeight" type="xsd:integer" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="uiSearch">
+		<xsd:complexType>
+
+			<xsd:choice minOccurs="1" maxOccurs="unbounded">
+				<xsd:element ref="uiXmlElementSearch"></xsd:element>
+			</xsd:choice>
+			<xsd:attribute name="idUiSearch" type="xsd:string" use="required" />
+			<xsd:attribute name="tableName" type="xsd:string" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="uiViewHeaderGroup">
+		<xsd:complexType>
+			<xsd:choice minOccurs="1" maxOccurs="unbounded">
+				<xsd:element ref="uiViewHeader"></xsd:element>
+				<xsd:element ref="uiViewHeaderGroup"></xsd:element>
+			</xsd:choice>
+			<xsd:attribute name="colTitle" type="xsd:string" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="uiViewHeader">
+		<xsd:complexType>
+			<xsd:attribute name="colTitle" type="xsd:string" use="required" />
+			<xsd:attribute name="columnModel" type="xsd:string" />
+			<xsd:attribute name="columnModelAr" type="xsd:string" />
+			<xsd:attribute name="colWidth" type="intPer" />
+			<xsd:attribute name="fVisible" type="intBin" />
+			<xsd:attribute name="fSort" type="intBin" />
+			<xsd:attribute name="fFiltered" type="intBin" />
+			<xsd:attribute name="fColumnToggler" type="intBin" />
+			<xsd:attribute name="align" type="align" />
+			<xsd:attribute name="colFooter" type="xsd:string" />
+			<xsd:attribute name="type" type="type" />
+			<xsd:attribute name="dual" type="xsd:boolean" />
+			<xsd:attribute name="tooltip" type="xsd:boolean" />
+			<xsd:attribute name="tooltipVal" type="xsd:string" />
+			<xsd:attribute name="tooltipCol" type="xsd:string" />
+			<xsd:attribute name="escape" type="xsd:boolean" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="uiView">
+		<xsd:complexType>
+			<xsd:choice maxOccurs="unbounded">
+				<xsd:element name="title" type="xsd:string" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="tabWidth" type="intPer" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="nbRows" type="intRow" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="fAdd" type="intBinOrder" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="fEdit" type="intBinOrder" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="fDelete" type="intBinOrder"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="fRadioBox" type="intBin" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="fResizeColumn" type="intBin"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="fCheckBox" type="intBin" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="libEmptyList" type="xsd:string"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="libEmptyListFiltred" type="xsd:string"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="withPagination" type="intBin"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="fFiltered" type="intBin" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="fColToggler" type="intBin" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="withFooter" type="intBin" minOccurs="0"
+					maxOccurs="1" />
+				<xsd:element name="dialogPanel" type="dialogPanelRef"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="dialogPanelEdit" type="dialogPanelRef"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="fExportCsv" type="intBinOrder"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="fExportPdf" type="intBinOrder"
+					minOccurs="0" maxOccurs="1" />
+				<xsd:element name="exportFileName" type="xsd:string"
+					minOccurs="0" maxOccurs="1" />
+
+				<xsd:choice minOccurs="1" maxOccurs="unbounded">
+					<xsd:element ref="uiViewHeader"></xsd:element>
+					<xsd:element ref="uiViewHeaderGroup"></xsd:element>
+					<xsd:element ref="uiSearch" minOccurs="0" maxOccurs="1"></xsd:element>
+				</xsd:choice>
+
+			</xsd:choice>
+			<xsd:attribute name="id" type="xsd:string" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="root">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="uiView" minOccurs="0" maxOccurs="unbounded" />
+			</xsd:sequence>
+		</xsd:complexType>
+
+		<xsd:unique name="uiViewIdKey">
+			<xsd:selector xpath="./uiView" />
+			<xsd:field xpath="@id" />
+		</xsd:unique>
+	</xsd:element>
+</xsd:schema>
+       

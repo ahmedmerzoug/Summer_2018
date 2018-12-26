@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:p="http://primefaces.org/ui">
+
+<composite:interface>
+	<composite:attribute name="idComponent" required="true" />
+	<composite:attribute name="bean" required="true" />
+
+
+</composite:interface>
+
+<composite:implementation>
+
+
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+		widgetVar="#{cc.attrs.idComponent}_deleteDialog"
+		dir="#{sessionLang.dir}" severity="alert"
+		styleClass="ui-dialog-delete ui-dialog ui-dialog-content">
+		<p:commandButton value="#{gen['ui.dataTable.confirmDelete']}"
+			type="button" style="float:#{sessionLang.dirValueInv};"
+			styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		<p:commandButton value="#{gen['ui.dataTable.declineDelete']}"
+			style="float:#{sessionLang.dirValueInv};"
+			action="#{cc.attrs.bean.deleteRowDataTable}" process="@form"
+			styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+	</p:confirmDialog>
+
+
+	<p:outputPanel id="#{cc.attrs.idComponent}_out_panel">
+		<p:panelGrid columns="3" style="text-align: #{sessionLang.dirValue};"
+			columnClasses="ui-grid-col-9,ui-grid-col-1,ui-grid-col-2"
+			layout="grid">
+			<h:outputText value="#{com[cc.attrs.bean.xmlView.title]}"
+				styleClass="labelTextGen"></h:outputText>
+
+
+
+
+			<h:panelGroup layout="div">
+
+				<p:commandButton value="" immediate="true" ajax="true"
+					id="#{cc.attrs.idComponent}_ajout"
+					icon="fa fa-plus ui-button-icon-only-table" process="@form"
+					update="@form" action="#{cc.attrs.bean.addRow}"
+					style="border-radius: 3px !important;max-width: 20px !important;min-width: 22px !important;"
+					styleClass="ui-button-icon-only ui-button-icon-only-table-front"></p:commandButton>
+				<p:commandButton value="" id="#{cc.attrs.idComponent}_edit"
+					action="#{cc.attrs.bean.editRow}" immediate="true" update="@form"
+					process="@form" ajax="true"
+					icon="fa fa-pencil ui-button-icon-only-table"
+					style="border-radius: 3px !important;max-width: 20px !important;min-width: 22px !important;"
+					styleClass="ui-button-icon-only ui-button-icon-only-table-front"></p:commandButton>
+				<p:commandButton value="" action="#{cc.attrs.bean.deleteRow}"
+					id="#{cc.attrs.idComponent}_delete" process="@form"
+					icon="fa fa-trash ui-button-icon-only-table"
+					style="border-radius: 3px !important;max-width: 20px !important;min-width: 22px !important;"
+					styleClass="ui-button-icon-only ui-button-icon-only-table-front">
+					<p:confirm header="#{gen['ui.dataTable.headerDialogDelete']}"
+						message="#{gen['ui.dataTable.msgDialogDelete']}"
+						icon="ui-icon-alert" />
+				</p:commandButton>
+
+			</h:panelGroup>
+
+
+			<h:panelGroup>
+				<p:commandButton id="toggler" type="button" value="Columns"
+					style="float:right" icon="ui-icon-calculator" />
+				<p:columnToggler datasource="#{cc.attrs.idComponent}_idDateTable"
+					trigger="toggler">
+					<p:ajax event="toggle" listener="#{cc.attrs.bean.onToggle}" />
+				</p:columnToggler>
+			</h:panelGroup>
+
+
+
+		</p:panelGrid>
+	</p:outputPanel>
+
+
+
+	<p:dataTable id="#{cc.attrs.idComponent}_idDateTable" var="dataItem"
+		value="#{cc.attrs.bean.listData}" draggableColumns="true"
+		widgetVar="widgetVar" filteredValue="#{cc.attrs.bean.listDataFiltred}"
+		emptyMessage="#{gen['ui.dataTable.libEmptyList']}" reflow="true"
+		style="width:100%;" rows="#{cc.attrs.bean.xmlView.nbRows}"
+		rowsPerPageTemplate="10,20,50" paginatorPosition="bottom"
+		paginator="true" selectionMode="single" rowKey="#{dataItem.id}"
+		selection="#{cc.attrs.bean.selectedTableGen}">
+
+		<p:columns value="#{cc.attrs.bean.columns}" var="column"
+			filterMatchMode="contains" columnIndexVar="colIndex"
+			sortBy="#{dataItem[column.columnModel]}" width="#{column.colWidth}"
+			visible="#{cc.attrs.bean.listToggleEvent[column.ordreForColumnToggler]}">
+
+			<f:facet name="header">
+				<h:outputText value="#{column.colTitle}" />
+			</f:facet>
+			<h:outputText
+				value="#{sessionLang.lang=='fr' ? dataItem[column.columnModel]: dataItem[column.columnModelAr]}" />
+		</p:columns>
+		<p:ajax event="rowSelect" listener="#{cc.attrs.bean.onRowSelect}" />
+	</p:dataTable>
+
+</composite:implementation>
+
+</html>

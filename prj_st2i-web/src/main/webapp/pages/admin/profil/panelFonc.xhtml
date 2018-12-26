@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<style type="text/css">
+.ui-icon-supp {
+	height: 20px;
+	width: 20px;
+	border-radius: 0px !important;
+	background: url(#{ resource [ 'images/icons:redX.png' ]
+}
+
+)
+no-repeat
+ 
+!
+important
+;
+
+
+}
+.ui-icon-valid {
+	height: 20px;
+	width: 20px;
+	border-radius: 0px !important;
+	background: url(#{ resource [ 'images/icons:greenCheck.png' ]
+}
+
+)
+no-repeat
+ 
+!
+important
+;
+
+
+}
+.ui-treenode.marginAr .ui-treenode-children {
+	margin: 0;
+	padding: 0 16px 0 16px !important;
+}
+</style>
+
+	<p:selectOneRadio id="radioDroitsAcces" value="#{foncBean.droitAcces}"
+		layout="custom">
+		<f:selectItem itemLabel="" itemValue="pasAcces" />
+		<f:selectItem itemLabel="" itemValue="accesConsult" />
+		<f:selectItem itemLabel="" itemValue="accesTotal" />
+		<f:selectItem itemLabel="" itemValue="accesTotalValid" />
+
+		<p:ajax event="change" update=":formFonc"
+			listener="#{foncBean.editNode}" />
+
+	</p:selectOneRadio>
+
+	<p:panel id="panelFonc" header="#{msg['adminFonc.fiche.fonc']}">
+		<br />
+		<table width="1000px" border="0">
+			<tr>
+				<td width="50%" valign="top"><p:tree id="treeFonctions"
+						value="#{foncBean.root}" var="node" dynamic="false"
+						style="width:100%; border:0px;" selectionMode="single"
+						cache="true" selection="#{foncBean.selectedNode}">
+
+						<p:ajax event="select" update=":formFonc"
+							listener="#{foncBean.prepareEditNode(node)}" />
+
+						<p:treeNode icon="#{foncBean.fixNodeIcon(node)}"
+							styleClass="marginAr">
+							<h:outputText
+								value="&nbsp;#{sessionLang.lang=='fr'
+											?node.desFonc
+											:node.desFoncAr}" />
+						</p:treeNode>
+					</p:tree></td>
+				<td width="50%" valign="top"><p:panel id="panelAction"
+						header="#{msg['adminFonc.fiche.droits']}"
+						rendered="#{foncBean.displayPanelAction}">
+
+						<h:panelGrid columns="3" width="100%" id="gridDroits"
+							columnClasses="column15,column10,column75">
+
+							<h:outputLabel value="" />
+							<p:radioButton id="radioDroitsAccesOpt1" for="radioDroitsAcces"
+								itemIndex="0" />
+							<h:outputLabel value="#{msg['adminFonc.fiche.droits.item1']}"
+								for="radioDroitsAccesOpt1"
+								style="font-size: 15px;font-weight: bold !important;" />
+
+							<h:outputLabel value="" />
+							<p:radioButton id="radioDroitsAccesOpt2" for="radioDroitsAcces"
+								itemIndex="1" />
+							<h:outputLabel value="#{msg['adminFonc.fiche.droits.item2']}"
+								for="radioDroitsAccesOpt2"
+								style="font-size: 15px;font-weight: bold !important;" />
+
+							<h:outputLabel value="" />
+							<p:radioButton id="radioDroitsAccesOpt3" for="radioDroitsAcces"
+								itemIndex="2" />
+							<h:outputLabel value="#{msg['adminFonc.fiche.droits.item3']}"
+								for="radioDroitsAccesOpt3"
+								style="font-size: 15px;font-weight: bold !important;" />
+
+							<h:outputLabel value="" />
+							<p:radioButton id="radioDroitsAccesOpt4" for="radioDroitsAcces"
+								itemIndex="3" />
+							<h:outputLabel value="#{msg['adminFonc.fiche.droits.item4']}"
+								for="radioDroitsAccesOpt4"
+								style="font-size: 15px;font-weight: bold !important;" />
+						</h:panelGrid>
+					</p:panel></td>
+			</tr>
+		</table>
+		<br />
+	</p:panel>
+
+</ui:composition>

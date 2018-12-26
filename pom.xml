@@ -1,0 +1,74 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>tn.com.st2i</groupId>
+	<artifactId>prj_st2i</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>prj_st2i</name>
+	<url>http://http://www.st2i.com.tn</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<easyfaces.version>1.2.15-alpha</easyfaces.version>
+		<jdk.version>1.8</jdk.version>
+		<spring.version>4.2.5.RELEASE</spring.version>
+		<spring.security.version>4.0.1.RELEASE</spring.security.version>
+		<jsf.version>2.3</jsf.version>
+		<primefaces.version>6.1</primefaces.version>
+		<hibernate.version>4.3.10.Final</hibernate.version>
+		<lombok.version>1.16.4</lombok.version>
+		<net.sf.ehcache.version>2.10.2</net.sf.ehcache.version>
+		<org.flywaydb.version>4.0</org.flywaydb.version>
+		<spring.data.version>1.10.1.RELEASE</spring.data.version>
+		<spring.data.common.version>1.12.1.RELEASE</spring.data.common.version>
+		<st2i.ged.cmis.version>1.0.3</st2i.ged.cmis.version>
+		<camunda.version>7.6.0</camunda.version>
+		<chemistry.opencmis.version>0.13.0</chemistry.opencmis.version>
+		<alfresco.cmis.version>1.0</alfresco.cmis.version>
+	</properties>
+	
+	<!-- St2i local repository -->
+	<repositories>
+		<repository>
+			<name>Internal Releases</name>
+			<id>releases</id>
+			<url>http://192.168.1.129:8081/repository/maven-releases</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<name>Internal Releases</name>
+			<id>releases</id>
+			<url>http://192.168.1.129:8081/repository/maven-releases</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<modules>
+		<module>prj_st2i-common</module>
+		<module>prj_st2i-persistence</module>
+		<module>prj_st2i-business</module>
+		<module>prj_st2i-presentation</module>
+		<module>prj_st2i-web</module>
+	<!-- <module>prj_st2i-workflow</module> -->
+	<!-- <module>prj_st2i-test</module> -->
+	</modules>
+
+</project>

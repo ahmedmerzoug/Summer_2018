@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:nf="http://java.sun.com/jsf/composite/easyfaces"
+	xmlns:st2i="http://java.sun.com/jsf/composite/st2ii"
+	xmlns:p="http://primefaces.org/ui">
+
+	<style type="text/css">
+.ui-dialog.hideScrollBarForChrome .ui-dialog-content {
+	overflow: hidden !important;
+	margin-bottom: 5px !important;
+}
+</style>
+
+	<p:dialog widgetVar="wLogAccess" dir="#{sessionLang.dir}"
+		closeOnEscape="true" width="1025px"
+		header="#{msg['logAccess.fiche.title']}" resizable="false"
+		visible="false" modal="true" appendTo="@(body)" showEffect="fade"
+		hideEffect="fade" styleClass="hideScrollBarForChrome">
+
+		<h:form id="formLogAccess">
+			<p:panel header="#{msg['logAccess.fiche.log']}">
+				<nf:panelGrid4>
+					<nf:outputText label="#{msg['logAccess.fiche.login']} :"
+						value="#{logAccessUI.logAccess.login}" widthInput="200"
+						widthLabel="110" width="200" />
+					<nf:outputText label="#{msg['logAccess.fiche.nom']} :"
+						value="#{logAccessUI.logAccess.nom}" widthInput="150"
+						widthLabel="110" width="150" />
+					<nf:outputText label="#{msg['logAccess.fiche.fonc']} :"
+						value="#{logAccessUI.logAccess.labelFonc}" widthInput="200"
+						widthLabel="110" width="200" />
+					<nf:outputText label="#{msg['logAccess.fiche.access']} :"
+						value="#{sessionLang.lang=='fr'?logAccessUI.logAccess.accesFr:logAccessUI.logAccess.accesAr}"
+						widthInput="150" widthLabel="110" width="150" />
+				</nf:panelGrid4>
+				<nf:panelGrid4>
+					<nf:outputText label="#{msg['logAccess.fiche.date']} :"
+						value="#{utils.formatDate(logAccessUI.logAccess.datLog)}"
+						widthInput="200" widthLabel="110" width="200" />
+					<nf:outputText label="#{msg['logAccess.fiche.time']} :"
+						value="#{logAccessUI.logAccess.timeLog}" widthInput="150"
+						widthLabel="110" width="150" />
+					<nf:outputText label="#{msg['logAccess.fiche.remoteAdd']} :"
+						value="#{logAccessUI.logAccess.remoteAddr}" widthInput="200"
+						widthLabel="110" width="200" />
+					<nf:outputText label="#{msg['logAccess.fiche.browser']} :"
+						value="#{logAccessUI.logAccess.browser}" widthInput="150"
+						widthLabel="110" width="150" />
+				</nf:panelGrid4>
+			</p:panel>
+			<br />
+			<div style="overflow: auto; width: 100%; height: 300px;">
+				<p:panelGrid id="listLogDataBySessionUI"
+					binding="#{logDataBySessionUI.panelGrid}"></p:panelGrid>
+			</div>
+
+			<br />
+			<table style="width: 100%;" border="0">
+				<tr>
+					<td><h:panelGroup style="float:#{sessionLang.dirValueInv};">
+							<nf:button widgetVar="wLogAccess"></nf:button>
+						</h:panelGroup></td>
+				</tr>
+			</table>
+		</h:form>
+	</p:dialog>
+
+</ui:composition>
